@@ -17,6 +17,6 @@ class Level:
             for x in range(self.width):
                 block = config.getboolean(self.map[y][x], "block")
                 tileType = config.get(self.map[y][x], "name")
-                self.tilesList.append(tile.Tile(tileType, x, y, block))
-
-        print("Size of map: {} x {}".format(self.width, self.height))
+                image = config.get(self.map[y][x], "image")
+                self.tilesList.append(tile.Tile(tileType, image, x, y, block))
+        self.tilesList = [self.tilesList[x:x+5] for x in range(0, len(self.tilesList), 5)]

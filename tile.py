@@ -1,8 +1,8 @@
 # coding: utf-8
 
 class Tile():
-    def __init__(self, tileType, x, y, block):
-        self.type = tileType
+    def __init__(self, tileType, image, x, y, block):
+        self.tileType = tileType
         self.image = ""
         self.x = x
         self.y = y
@@ -10,4 +10,4 @@ class Tile():
         self.object = None
         
     def getInfo(self, x, y):
-        return self.block, self.x, self.y
+        return self.block
