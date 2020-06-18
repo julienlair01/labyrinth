@@ -18,5 +18,6 @@ class Level:
                 block = config.getboolean(self.map[y][x], "block")
                 tileType = config.get(self.map[y][x], "name")
                 image = config.get(self.map[y][x], "image")
+                # print (image)
                 self.tilesList.append(tile.Tile(tileType, image, x, y, block))
         self.tilesList = [self.tilesList[x:x+5] for x in range(0, len(self.tilesList), 5)]
