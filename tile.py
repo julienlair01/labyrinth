@@ -1,5 +1,5 @@
 # coding: utf-8
-import pygame
+import pygame, element
 from pygame.locals import *
 
 class Tile():
@@ -8,15 +8,22 @@ class Tile():
         self.x = x
         self.y = y
         self.block = block
-        self.object = None
+        self.elements = []
 
         if self.tileType == "wall": # problem with loading image through image variable (pygame can't load the image), now using hardcoded values
             self.image = pygame.image.load("assets/wall.png")
         elif self.tileType == "floor":
             self.image = pygame.image.load("assets/floor.png")
+        elif self.tileType == "exit":
+            self.image = pygame.image.load("assets/floor.png")
+            self.elements.append(element.Element(self.x, self.y, tileType, "assets/Gardien.png"))
+        elif self.tileType == "needle":
+            print("salut")
+            self.image = pygame.image.load("assets/floor.png")
+            self.elements.append(element.Element(self.x, self.y, tileType, "assets/seringue.png"))
         else:
             self.image = pygame.image.load("assets/floor.png")
-            
+
         self.surf = pygame.Surface((50, 50))
         self.rect = self.surf.get_rect(topleft = (50 * self.x, 50 * self.y))
         
