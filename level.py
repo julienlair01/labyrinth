@@ -18,7 +18,7 @@ class Level:
                 tileType = config.get(self.map[y][x], "name")
                 image = config.get(self.map[y][x], "image")
                 self.tilesList.append(tile.Tile(tileType, image, x, y, block))
-        self.tilesList = [self.tilesList[x:x+10] for x in range(0, len(self.tilesList), 10)]
+        self.tilesList = [self.tilesList[x:x+self.width] for x in range(0, len(self.tilesList), self.width)]
     
     def getLevelSize(self):
         self.height = len(self.map)

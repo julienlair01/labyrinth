@@ -1,6 +1,6 @@
 # coding: utf-8
 
-import level, tile, pprint, pygame, sys
+import level, tile, pprint, pygame, sys, player
 from pygame.locals import *
 
 # Initialize program
@@ -17,7 +17,7 @@ WHITE = (255, 255, 255)
 TILE_SIZE = 50
 
 level = level.Level()
-print(level.tilesList[1][1].getInfo())
+player = player.Player()
 
 while True:
     for event in pygame.event.get():
@@ -31,8 +31,13 @@ while True:
     # Draw grid
     for y in range (0, level.height):
         for x in range (0, level.width):
-            tileInfo = level.tilesList[y][x].getInfo()
+            try:
+                tileInfo = level.tilesList[y][x].getInfo()
+            except IndexError:
+                print("Index error for coord: ", x, y)
             level.tilesList[y][x].drawTile(DISPLAYSURF)
+    
+    player.drawPlayer(DISPLAYSURF)
 
     pygame.display.set_caption("Escape MacGyver")
     FramePerSec.tick(FPS)

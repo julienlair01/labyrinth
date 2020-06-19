@@ -9,12 +9,14 @@ class Tile():
         self.y = y
         self.block = block
         self.object = None
-        if self.tileType == "wall": # problem with loading image through image variable (pygame can't load the image)
+
+        if self.tileType == "wall": # problem with loading image through image variable (pygame can't load the image), now using hardcoded values
             self.image = pygame.image.load("assets/wall.png")
         elif self.tileType == "floor":
             self.image = pygame.image.load("assets/floor.png")
         else:
             self.image = pygame.image.load("assets/floor.png")
+            
         self.surf = pygame.Surface((50, 50))
         self.rect = self.surf.get_rect(topleft = (50 * self.x, 50 * self.y))
         
@@ -22,4 +24,4 @@ class Tile():
         return {"tileType": self.tileType, "block": self.block}
 
     def drawTile(self, surface):
-        surface.blit(self.image, self.rect) 
+        surface.blit(self.image, self.rect)
