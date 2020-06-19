@@ -34,10 +34,7 @@ while True:
     for y in range (0, 5):
         for x in range (0, 5):
             tileInfo = level.tilesList[y][x].getInfo()
-            if tileInfo["tileType"] == "wall":
-                level.tilesList[y][x].drawTile(DISPLAYSURF)
-            elif tileInfo["tileType"] == "floor":
-                level.tilesList[y][x].drawTile(DISPLAYSURF)
+            level.tilesList[y][x].drawTile(DISPLAYSURF)
 
     pygame.display.set_caption("Escape MacGyver")
     FramePerSec.tick(FPS)
