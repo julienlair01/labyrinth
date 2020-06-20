@@ -17,7 +17,7 @@ WHITE = (255, 255, 255)
 TILE_SIZE = 50
 
 level = level.Level()
-player = player.Player()
+player = player.Player(level)
 
 while True:
     for event in pygame.event.get():

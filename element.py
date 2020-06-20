@@ -7,11 +7,10 @@ class Element:
 
     def __init__(self, x, y, content, image):
         self.content = content
-        print(self.content)
+        
         if self.content == "exit":
-            self.image = pygame.image.load("assets/Gardien.png")
+            self.image = pygame.image.load(str(image))
         elif self.content == "needle":
-            print("coucou")
             self.image = pygame.image.load("assets/seringue.png")
 
         self.surf = pygame.Surface((50, 50))
