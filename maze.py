@@ -19,16 +19,12 @@ TILESIZE = 50
 level = level.Level()
 player = player.Player(level)
 
+pygame.display.set_caption("Escape MacGyver") 
 
 while True:
-    for event in pygame.event.get():
-
-        if event.type == QUIT:
-            pygame.quit()
-            sys.exit()
-
-    DISPLAYSURF = pygame.display.set_mode((level.width * TILESIZE, level.height * TILESIZE))
     
+    DISPLAYSURF = pygame.display.set_mode((level.width * TILESIZE, level.height * TILESIZE))
+
     # Draw grid
     for y in range (0, level.height):
         for x in range (0, level.width):
@@ -39,8 +35,13 @@ while True:
             level.tilesList[y][x].drawTile(DISPLAYSURF)
             if level.tilesList[y][x].elements:
                 level.tilesList[y][x].elements[0].drawElement(DISPLAYSURF)
-    
-    pygame.display.set_caption("Escape MacGyver")   
+
+    for event in pygame.event.get():
+
+        if event.type == QUIT:
+            pygame.quit()
+            sys.exit()
+      
     player.update(level.height * TILESIZE, level.width * TILESIZE, level)
     player.draw(DISPLAYSURF)
     FramePerSec.tick(FPS)
