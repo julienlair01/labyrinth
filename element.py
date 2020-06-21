@@ -9,7 +9,7 @@ class Element:
         self.content = content
         
         if self.content == "exit":
-            self.image = pygame.image.load(str(image))
+            self.image = pygame.image.load("assets/Gardien.png")
         elif self.content == "needle":
             self.image = pygame.image.load("assets/seringue.png")
 

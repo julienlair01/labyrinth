@@ -35,11 +35,12 @@ while not foundExit:
             except IndexError:
                 print("Index error for coord: ", x, y)
             level.tilesList[y][x].drawTile(DISPLAYSURF)
+            # Draw elements
             if level.tilesList[y][x].elements:
-                level.tilesList[y][x].elements[0].drawElement(DISPLAYSURF)
+                for i in range (0, len(level.tilesList[y][x].elements)):
+                    level.tilesList[y][x].elements[i].drawElement(DISPLAYSURF)
 
     for event in pygame.event.get():
-
         if event.type == QUIT:
             pygame.quit()
             sys.exit()

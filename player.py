@@ -11,7 +11,7 @@ class Player(pygame.sprite.Sprite):
         self.image = pygame.image.load("assets/macgyver.png")
         self.surf = pygame.Surface((50, 50))
         self.rect = self.surf.get_rect(topleft = (self.x, self.y))
-
+        
     def draw(self, surface):
         surface.blit(self.image, self.rect)
 
