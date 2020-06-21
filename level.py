@@ -35,6 +35,13 @@ class Level:
                     return self.tilesList[y][x].x, self.tilesList[y][x].y
         return None 
 
+    def getExitTile(self):
+        for y in range(self.height):
+            for x in range(self.width):
+                if self.tilesList[y][x].tileType == "exit":
+                    return self.tilesList[y][x].x, self.tilesList[y][x].y
+        return None 
+
     def canMove(self, x, y):
         if self.tilesList[y][x].block == False:
             return True
