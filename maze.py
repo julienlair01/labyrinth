@@ -6,7 +6,7 @@ from pygame.locals import *
 # Initialize program
 pygame.init()
 # Assign FPS a value
-FPS = 30
+FPS = 60
 FramePerSec = pygame.time.Clock()
 # Setting up color objects
 BLUE  = (0, 0, 255)
@@ -14,7 +14,7 @@ RED   = (255, 0, 0)
 GREEN = (0, 255, 0)
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
-TILE_SIZE = 50
+TILESIZE = 50
 
 level = level.Level()
 player = player.Player(level)
@@ -26,7 +26,7 @@ while True:
             pygame.quit()
             sys.exit()
 
-    DISPLAYSURF = pygame.display.set_mode((level.width * TILE_SIZE, level.height * TILE_SIZE))
+    DISPLAYSURF = pygame.display.set_mode((level.width * TILESIZE, level.height * TILESIZE))
     
     # Draw grid
     for y in range (0, level.height):
@@ -39,13 +39,9 @@ while True:
             if level.tilesList[y][x].elements:
                 level.tilesList[y][x].elements[0].drawElement(DISPLAYSURF)
     
-    # Draw elements
-    player.drawPlayer(DISPLAYSURF)
-
-    pygame.display.set_caption("Escape MacGyver")
+    pygame.display.set_caption("Escape MacGyver")   
+    player.update(level.height * TILESIZE, level.width * TILESIZE, level)
+    player.draw(DISPLAYSURF)
     FramePerSec.tick(FPS)
-
-
-
 
 

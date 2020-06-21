@@ -10,7 +10,7 @@ class Tile():
         self.block = block
         self.elements = []
 
-        if self.tileType == "wall": # problem with loading image through image variable (pygame can't load the image), now using hardcoded values
+        if self.tileType == "wall": # problem with pygame when loading image through image variable (pygame can't load the image), now using hardcoded values
             self.image = pygame.image.load("assets/wall.png")
         elif self.tileType == "floor":
             self.image = pygame.image.load("assets/floor.png")
@@ -18,7 +18,6 @@ class Tile():
             self.image = pygame.image.load("assets/floor.png")
             self.elements.append(element.Element(self.x, self.y, tileType, "assets/Gardien.png"))
         elif self.tileType == "needle":
-            print("salut")
             self.image = pygame.image.load("assets/floor.png")
             self.elements.append(element.Element(self.x, self.y, tileType, "assets/seringue.png"))
         else:

@@ -3,6 +3,7 @@
 import configparser, tile
 
 class Level:
+    
     def __init__(self):
         self.tilesList = []
         self.generateLevel("levelconfig.ini")
@@ -33,3 +34,11 @@ class Level:
                 if self.tilesList[y][x].tileType == "start":
                     return self.tilesList[y][x].x, self.tilesList[y][x].y
         return None 
+
+    def canMove(self, x, y):
+        if self.tilesList[y][x].block == False:
+            return True
+        elif self.tilesList[y][x].block:
+            return False
+        else:
+            return False
