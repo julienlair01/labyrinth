@@ -28,5 +28,5 @@ class Tile():
     def getInfo(self):
         return {"tileType": self.tileType, "block": self.block}
 
-    def drawTile(self, surface):
+    def draw(self, surface):
         surface.blit(self.image, self.rect)

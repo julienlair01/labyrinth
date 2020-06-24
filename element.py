@@ -16,7 +16,7 @@ class Element:
         self.surf = pygame.Surface((50, 50))
         self.rect = self.surf.get_rect(topleft = (50 * x, 50 * y))
 
-    def drawElement(self, surface):
+    def draw(self, surface):
         surface.blit(self.image, self.rect)
 
     

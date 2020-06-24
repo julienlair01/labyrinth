@@ -49,3 +49,16 @@ class Level:
             return False
         else:
             return False
+
+    def draw(self, displaysurf):
+        for y in range (0, self.height):
+            for x in range (0, self.width):
+                try:
+                    tileInfo = self.tilesList[y][x].getInfo()
+                except IndexError:
+                    print("Index error for coord: ", x, y)
+                self.tilesList[y][x].draw(displaysurf)
+                # Draw elements
+                if self.tilesList[y][x].elements:
+                    for i in range (0, len(self.tilesList[y][x].elements)):
+                        self.tilesList[y][x].elements[i].draw(displaysurf)

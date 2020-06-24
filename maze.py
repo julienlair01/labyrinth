@@ -26,20 +26,8 @@ foundExit = False
 while not foundExit:
     
     DISPLAYSURF = pygame.display.set_mode((level.width * TILESIZE, level.height * TILESIZE))
-
-    # Draw grid
-    for y in range (0, level.height):
-        for x in range (0, level.width):
-            try:
-                tileInfo = level.tilesList[y][x].getInfo()
-            except IndexError:
-                print("Index error for coord: ", x, y)
-            level.tilesList[y][x].drawTile(DISPLAYSURF)
-            # Draw elements
-            if level.tilesList[y][x].elements:
-                for i in range (0, len(level.tilesList[y][x].elements)):
-                    level.tilesList[y][x].elements[i].drawElement(DISPLAYSURF)
-
+    level.draw(DISPLAYSURF)
+    
     for event in pygame.event.get():
         if event.type == QUIT:
             pygame.quit()
@@ -53,5 +41,3 @@ while not foundExit:
         foundExit = True
 
     FramePerSec.tick(FPS)
-
-
