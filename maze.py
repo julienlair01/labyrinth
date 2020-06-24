@@ -35,9 +35,9 @@ while not foundExit:
       
     player.update(level.height * TILESIZE, level.width * TILESIZE, level)
     player.draw(DISPLAYSURF)
-    
-    if (player.x, player.y) == (exitX, exitY):
+    foundExit = player.hasFoundExit(level)
+
+    if foundExit:
         print("Congrats, you found the exit!")
-        foundExit = True
 
     FramePerSec.tick(FPS)

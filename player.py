@@ -10,7 +10,8 @@ class Player(pygame.sprite.Sprite):
         self.x, self.y = level.getStartTile()
         self.image = pygame.image.load("assets/macgyver.png")
         self.surf = pygame.Surface((50, 50))
-        self.rect = self.surf.get_rect(topleft = (self.x, self.y))
+        self.rect = self.surf.get_rect(topleft = (50 * self.x, 50 * self.y))
+
         
     def draw(self, surface):
         surface.blit(self.image, self.rect)
@@ -41,3 +42,10 @@ class Player(pygame.sprite.Sprite):
                 if level.canMove(self.x + 1, self.y):
                     self.rect.move_ip(50, 0)
                     self.x += 1
+    
+    def hasFoundExit(self, level):
+
+        if (self.x, self.y) == level.getExitTile():
+            return True
+        else:
+            return False
