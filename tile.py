@@ -9,12 +9,10 @@ class Tile():
         self.y = y
         self.block = block
         self.elements = []
-
         if self.tileType == "wall": # problem with pygame when loading image through image variable (pygame can't load the image), now using hardcoded values
             self.image = pygame.image.load("assets/wall.png")
         else:
             self.image = pygame.image.load("assets/floor.png")
-        
         if self.tileType == "exit":
             self.addElement("guard")
  
@@ -22,6 +20,7 @@ class Tile():
         self.rect = self.surf.get_rect(topleft = (50 * self.x, 50 * self.y))
         
     def addElement(self, elementType):
+        """Adds an element on the tile (guard or item)"""
         if elementType == "guard":
             self.elements.append(element.Element(self.x, self.y, self.tileType, "assets/Gardien.png"))
     
@@ -29,4 +28,5 @@ class Tile():
         return {"tileType": self.tileType, "block": self.block}
 
     def draw(self, surface):
+        """Draws the single tile"""
         surface.blit(self.image, self.rect)

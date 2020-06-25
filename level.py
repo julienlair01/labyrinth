@@ -9,7 +9,7 @@ class Level:
         self.generateLevel("levelconfig.ini")
 
     def generateLevel(self, levelConfigfilename = "levelconfig.ini"):
-        """Generates individual tiles, composing the entire map, based on the layout in the config file"""
+        """Creates map individual tiles in the tilesList table, based on the layout in the config file"""
         config = configparser.ConfigParser()
         config.read(levelConfigfilename)
         self.map = config.get("level", "layout").split("\n")
@@ -18,7 +18,7 @@ class Level:
             for x in range(self.width):
                 block = config.getboolean(self.map[y][x], "block")
                 tileType = config.get(self.map[y][x], "name")
-                image = config.get(self.map[y][x], "image")
+                image = config.get(self.map[y][x], "bg_image")
                 self.tilesList.append(tile.Tile(tileType, image, x, y, block))
         self.tilesList = [self.tilesList[x:x+self.width] for x in range(0, len(self.tilesList), self.width)]
 
@@ -28,7 +28,7 @@ class Level:
         self.width = len(self.map[0])
 
     def getStartTile(self):  
-        """Returns the position of the start tile"""
+        """Returns the position of the start tile in the tilesList table"""
         for y in range(self.height):
             for x in range(self.width):   
                 if self.tilesList[y][x].tileType == "start":
@@ -37,7 +37,7 @@ class Level:
         return None 
 
     def getExitTile(self):
-        """Returns the position of the exit tile"""
+        """Returns the position of the exit tile in the tilesList table """
         for y in range(self.height):
             for x in range(self.width):
                 if self.tilesList[y][x].tileType == "exit":
@@ -54,13 +54,9 @@ class Level:
             return False
 
     def draw(self, displaysurf):
-        """Draws each tile on the screen surface"""
+        """Draws the map by drawing each tile of the grid, and the element of the tile"""
         for y in range (0, self.height):
             for x in range (0, self.width):
-                try:
-                    tileInfo = self.tilesList[y][x].getInfo()
-                except IndexError:
-                    print("Index error for coord: ", x, y)
                 self.tilesList[y][x].draw(displaysurf)
                 if self.tilesList[y][x].elements:
                     for i in range (0, len(self.tilesList[y][x].elements)):
