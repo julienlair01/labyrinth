@@ -14,7 +14,6 @@ RED   = (255, 0, 0)
 GREEN = (0, 255, 0)
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
-TILESIZE = 50
 
 level = level.Level()
 player = player.Player(level)
@@ -25,7 +24,7 @@ foundExit = False
 
 while not foundExit:
     
-    DISPLAYSURF = pygame.display.set_mode((level.width * TILESIZE, level.height * TILESIZE))
+    DISPLAYSURF = pygame.display.set_mode((50 * level.width, 50 * level.height))
     level.draw(DISPLAYSURF)
     
     for event in pygame.event.get():
@@ -33,7 +32,7 @@ while not foundExit:
             pygame.quit()
             sys.exit()
       
-    player.update(level.height * TILESIZE, level.width * TILESIZE, level)
+    player.update(50 * level.height, 50 * level.width, level)
     player.draw(DISPLAYSURF)
     foundExit = player.hasFoundExit(level)
 

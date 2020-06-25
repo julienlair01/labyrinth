@@ -13,14 +13,12 @@ class Level:
         config.read(levelConfigfilename)
         self.map = config.get("level", "layout").split("\n")
         self.getLevelSize()
-        
         for y in range(self.height):
             for x in range(self.width):
                 block = config.getboolean(self.map[y][x], "block")
                 tileType = config.get(self.map[y][x], "name")
                 image = config.get(self.map[y][x], "image")
                 self.tilesList.append(tile.Tile(tileType, image, x, y, block))
-        
         self.tilesList = [self.tilesList[x:x+self.width] for x in range(0, len(self.tilesList), self.width)]
     
     def getLevelSize(self):
@@ -28,10 +26,12 @@ class Level:
         self.width = len(self.map[0])
         return self.width, self.height
 
-    def getStartTile(self):
+    def getStartTile(self):  
         for y in range(self.height):
             for x in range(self.width):
+                
                 if self.tilesList[y][x].tileType == "start":
+                    print("Found start tile:", x, y)
                     return self.tilesList[y][x].x, self.tilesList[y][x].y
         return None 
 
