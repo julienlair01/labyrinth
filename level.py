@@ -13,20 +13,20 @@ class Level:
         """Creates map individual tiles in the tilesList table, based on the layout in the config file"""
         config = configparser.ConfigParser()
         config.read(levelConfigfilename)
-        self.map = config.get("level", "layout").split("\n") # map only, only used in that case
-        self.getSize()
+        map = config.get("level", "layout").split("\n") # map only, only used in that case
+        self.getSize(map)
         for y in range(self.height):
             for x in range(self.width):
-                block = config.getboolean(self.map[y][x], "block")
-                tileType = config.get(self.map[y][x], "name")
-                image = config.get(self.map[y][x], "bg_image")
+                block = config.getboolean(map[y][x], "block")
+                tileType = config.get(map[y][x], "name")
+                image = config.get(map[y][x], "bg_image")
                 self.tilesList.append(tile.Tile(tileType, image, x, y, block))
         self.tilesList = [self.tilesList[x:x+self.width] for x in range(0, len(self.tilesList), self.width)]
 
-    def getSize(self): # calculate / generate size better
+    def getSize(self, map): # calculate / generate size better
         """Measure the size of the map, according to the layout"""
-        self.height = len(self.map)
-        self.width = len(self.map[0])
+        self.height = len(map)
+        self.width = len(map[0])
 
     def getStartTile(self):  
         """Returns the position of the start tile in the tilesList table"""
