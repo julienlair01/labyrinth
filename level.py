@@ -9,10 +9,11 @@ class Level:
         self.generateLevel("levelconfig.ini")
 
     def generateLevel(self, levelConfigfilename = "levelconfig.ini"):
+        """Generates individual tiles, composing the entire map, based on the layout in the config file"""
         config = configparser.ConfigParser()
         config.read(levelConfigfilename)
         self.map = config.get("level", "layout").split("\n")
-        self.getLevelSize()
+        self.getSize()
         for y in range(self.height):
             for x in range(self.width):
                 block = config.getboolean(self.map[y][x], "block")
@@ -21,11 +22,13 @@ class Level:
                 self.tilesList.append(tile.Tile(tileType, image, x, y, block))
         self.tilesList = [self.tilesList[x:x+self.width] for x in range(0, len(self.tilesList), self.width)]
 
-    def getLevelSize(self):
+    def getSize(self):
+        """Measure the size of the map, according to the layout"""
         self.height = len(self.map)
         self.width = len(self.map[0])
 
     def getStartTile(self):  
+        """Returns the position of the start tile"""
         for y in range(self.height):
             for x in range(self.width):   
                 if self.tilesList[y][x].tileType == "start":
@@ -34,6 +37,7 @@ class Level:
         return None 
 
     def getExitTile(self):
+        """Returns the position of the exit tile"""
         for y in range(self.height):
             for x in range(self.width):
                 if self.tilesList[y][x].tileType == "exit":
@@ -41,6 +45,7 @@ class Level:
         return None 
 
     def canMove(self, x, y):
+        """Returns True if tile is free to move to, or to get an element added, False if it is blocked"""
         if self.tilesList[y][x].block == False:
             return True
         elif self.tilesList[y][x].block:
@@ -49,6 +54,7 @@ class Level:
             return False
 
     def draw(self, displaysurf):
+        """Draws each tile on the screen surface"""
         for y in range (0, self.height):
             for x in range (0, self.width):
                 try:

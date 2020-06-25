@@ -8,12 +8,6 @@ pygame.init()
 # Assign FPS a value
 FPS = 30
 FramePerSec = pygame.time.Clock()
-# Setting up color objects
-BLUE  = (0, 0, 255)
-RED   = (255, 0, 0)
-GREEN = (0, 255, 0)
-BLACK = (0, 0, 0)
-WHITE = (255, 255, 255)
 
 level = level.Level()
 player = player.Player(level)
@@ -37,6 +31,6 @@ while not foundExit:
     foundExit = player.hasFoundExit(level)
 
     if foundExit:
-        print("Congrats, you found the exit!")
+        print("Congrats, you escaped!")
 
     FramePerSec.tick(FPS)
