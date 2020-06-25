@@ -7,7 +7,7 @@ class Player(pygame.sprite.Sprite, graphelement.GraphElement):
 
     def __init__(self, level):
         super().__init__() 
-        self.x, self.y = level.getStartTile()
+        self.x, self.y = level.startTile
         self.image = pygame.image.load("assets/macgyver.png")
         self.surf = pygame.Surface((50, 50))
         self.rect = self.surf.get_rect(topleft = (50 * self.x, 50 * self.y))
@@ -42,7 +42,4 @@ class Player(pygame.sprite.Sprite, graphelement.GraphElement):
     
     def hasFoundExit(self, level):
         """Returns True if the player reached the exit tile"""
-        if (self.x, self.y) == level.getExitTile(): # level is exit tile ? player does not care about coords
-            return True
-        else:
-            return False
+        return level.isExitTile(self.x, self.y)

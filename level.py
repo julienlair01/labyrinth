@@ -7,14 +7,15 @@ class Level:
     def __init__(self):
         self.tilesList = []
         self.generateLevel("levelconfig.ini")
-        # init exit and start tiles
+        self.startTile = self.getStartTile()
+        self.exitTile = self.getExitTile()
 
     def generateLevel(self, levelConfigfilename = "levelconfig.ini"):
         """Creates map individual tiles in the tilesList table, based on the layout in the config file"""
         config = configparser.ConfigParser()
         config.read(levelConfigfilename)
-        map = config.get("level", "layout").split("\n") # map only, only used in that case
-        self.getSize(map)
+        map = config.get("level", "layout").split("\n")
+        self.calculateSize(map)
         for y in range(self.height):
             for x in range(self.width):
                 block = config.getboolean(map[y][x], "block")
@@ -23,8 +24,8 @@ class Level:
                 self.tilesList.append(tile.Tile(tileType, image, x, y, block))
         self.tilesList = [self.tilesList[x:x+self.width] for x in range(0, len(self.tilesList), self.width)]
 
-    def getSize(self, map): # calculate / generate size better
-        """Measure the size of the map, according to the layout"""
+    def calculateSize(self, map):
+        """Measures the size of the map, according to the layout"""
         self.height = len(map)
         self.width = len(map[0])
 
@@ -45,6 +46,10 @@ class Level:
                 if self.tilesList[y][x].tileType == "exit":
                     return self.tilesList[y][x].x, self.tilesList[y][x].y
         return None 
+
+
+    def isExitTile(self, x, y):
+        return (x, y) == self.exitTile
 
 
     def canMove(self, x, y):
