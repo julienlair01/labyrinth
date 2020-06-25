@@ -57,6 +57,8 @@ class Level:
         for y in range (0, self.height):
             for x in range (0, self.width):
                 self.tilesList[y][x].draw(displaysurf)
-                if self.tilesList[y][x].elements:
-                    for i in range (0, len(self.tilesList[y][x].elements)):
-                        self.tilesList[y][x].elements[i].draw(displaysurf)
+                try:
+                    if self.tilesList[y][x].element:
+                        self.tilesList[y][x].element.draw(displaysurf)
+                except AttributeError:
+                    continue

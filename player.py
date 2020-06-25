@@ -1,9 +1,9 @@
 # coding: utf-8
 
-import pygame, sys, level
+import pygame, sys, level, graphelement
 from pygame.locals import *
 
-class Player(pygame.sprite.Sprite):
+class Player(pygame.sprite.Sprite, graphelement.GraphElement):
 
     def __init__(self, level):
         super().__init__() 
