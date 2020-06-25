@@ -20,16 +20,14 @@ class Level:
                 image = config.get(self.map[y][x], "image")
                 self.tilesList.append(tile.Tile(tileType, image, x, y, block))
         self.tilesList = [self.tilesList[x:x+self.width] for x in range(0, len(self.tilesList), self.width)]
-    
+
     def getLevelSize(self):
         self.height = len(self.map)
         self.width = len(self.map[0])
-        return self.width, self.height
 
     def getStartTile(self):  
         for y in range(self.height):
-            for x in range(self.width):
-                
+            for x in range(self.width):   
                 if self.tilesList[y][x].tileType == "start":
                     print("Found start tile:", x, y)
                     return self.tilesList[y][x].x, self.tilesList[y][x].y
@@ -58,7 +56,6 @@ class Level:
                 except IndexError:
                     print("Index error for coord: ", x, y)
                 self.tilesList[y][x].draw(displaysurf)
-                # Draw elements
                 if self.tilesList[y][x].elements:
                     for i in range (0, len(self.tilesList[y][x].elements)):
                         self.tilesList[y][x].elements[i].draw(displaysurf)
