@@ -8,7 +8,7 @@ class Tile():
         self.x = x
         self.y = y
         self.block = block
-        self.elements = []
+        self.element = element.Element() # TODO add parameter
         if self.tileType == "wall": # problem with pygame when loading image through image variable (pygame can't load the image), now using hardcoded values
             self.image = pygame.image.load("assets/wall.png")
         else:

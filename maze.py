@@ -8,6 +8,7 @@ pygame.init()
 # Assign FPS a value
 FPS = 30
 FramePerSec = pygame.time.Clock()
+TILESIZE = 50
 
 level = level.Level()
 player = player.Player(level)

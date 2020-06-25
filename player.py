@@ -17,16 +17,14 @@ class Player(pygame.sprite.Sprite):
         """Draws the player on the grid"""
         surface.blit(self.image, self.rect)
 
-    def update(self, screenHeight, screenWidth, level):
+    def update(self, screenHeight, screenWidth, level): # TODO move instead of update
         """Updates the player position on the grid, according to the move the player applies.
         Move is not allowed if the target tile is blocked by something (e.g. a wall)"""
         pressed_keys = pygame.key.get_pressed()
-        if self.rect.top > 0:
-            if pressed_keys[K_UP]:
-                if level.canMove(self.x, self.y - 1):
-                    self.rect.move_ip(0, -50)
-                    self.y -= 1
-        if self.rect.bottom < screenHeight: 
+        if self.rect.top > 0 and  pressed_keys[K_UP] and level.canMove(self.x, self.y - 1):
+            self.rect.move_ip(0, -50)
+            self.y -= 1
+        if self.rect.bottom < screenHeight: # TODO continue opti
             if pressed_keys[K_DOWN]:
                 if level.canMove(self.x, self.y + 1):
                     self.rect.move_ip(0, 50)
@@ -44,7 +42,7 @@ class Player(pygame.sprite.Sprite):
     
     def hasFoundExit(self, level):
         """Returns True if the player reached the exit tile"""
-        if (self.x, self.y) == level.getExitTile():
+        if (self.x, self.y) == level.getExitTile(): # level is exit tile ? player does not care about coords
             return True
         else:
             return False
