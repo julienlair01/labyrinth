@@ -54,7 +54,7 @@ class Level:
 
     def canMove(self, x, y):
         """Returns True if tile is free to move to, or to get an element added, False if it is blocked"""
-        return self.tilesList[y][x].block == False # is blocking
+        return self.tilesList[y][x].isBlocking == False # is blocking
 
 
     def draw(self, displaysurf):

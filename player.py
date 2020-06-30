@@ -17,29 +17,25 @@ class Player(pygame.sprite.Sprite, graphelement.GraphElement):
         """Draws the player on the grid"""
         surface.blit(self.image, self.rect)
 
-    def update(self, screenHeight, screenWidth, level): # TODO move instead of update
+
+    def update(self, screenHeight, screenWidth, level): # TODO move instead of update : bof bcs update can do nothing
         """Updates the player position on the grid, according to the move the player applies.
         Move is not allowed if the target tile is blocked by something (e.g. a wall)"""
         pressed_keys = pygame.key.get_pressed()
         if self.rect.top > 0 and  pressed_keys[K_UP] and level.canMove(self.x, self.y - 1):
             self.rect.move_ip(0, -50)
             self.y -= 1
-        if self.rect.bottom < screenHeight: # TODO continue opti
-            if pressed_keys[K_DOWN]:
-                if level.canMove(self.x, self.y + 1):
-                    self.rect.move_ip(0, 50)
-                    self.y += 1
-        if self.rect.left > 0:
-            if pressed_keys[K_LEFT]:
-                if level.canMove(self.x - 1, self.y):
-                    self.rect.move_ip(-50, 0)
-                    self.x -= 1                
-        if self.rect.right < screenWidth:
-            if pressed_keys[K_RIGHT]:
-                if level.canMove(self.x + 1, self.y):
-                    self.rect.move_ip(50, 0)
-                    self.x += 1
+        if self.rect.bottom < screenHeight and pressed_keys[K_DOWN] and level.canMove(self.x, self.y + 1):
+            self.rect.move_ip(0, 50)
+            self.y += 1
+        if self.rect.left > 0 and pressed_keys[K_LEFT] and level.canMove(self.x - 1, self.y):
+            self.rect.move_ip(-50, 0)
+            self.x -= 1                
+        if self.rect.right < screenWidth and pressed_keys[K_RIGHT] and level.canMove(self.x + 1, self.y):
+            self.rect.move_ip(50, 0)
+            self.x += 1
     
+
     def hasFoundExit(self, level):
         """Returns True if the player reached the exit tile"""
         return level.isExitTile(self.x, self.y)
