@@ -25,10 +25,10 @@ class Tile():
         """Adds an element on the tile (guard or item)"""
         if element_type == "guard":
             self.element = element.Element(self.x, self.y, element_type, "assets/Gardien.png")
-        elif element_type == "syringe":
-            self.element = element.Element(self.x, self.y, element_type, "assets/syringe.png")
+        elif element_type == "tube":
+            self.element = element.Element(self.x, self.y, element_type, "assets/tube_plastique.png")
         elif element_type == "needle":
-            self.element = element.Element(self.x, self.y, element_type, "assets/needle.png")
+            self.element = element.Element(self.x, self.y, element_type, "assets/syringe.png")
         elif element_type == "ether":
             self.element = element.Element(self.x, self.y, element_type, "assets/ether.png")
 

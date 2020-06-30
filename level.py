@@ -56,22 +56,16 @@ class Level:
 
     def generate_items(self):
         """Position the 3 items Macgyved needs to pick on the grid"""
+        items_list = ["tube", "needle", "ether"]
         tiles_list_free = []
-        forbidden_tiles = []
         for y in range(self.height):
             for x in range(self.width):
                 if not self.tiles_list[y][x].is_blocking and self.tiles_list[y][x].tile_type != "exit" and self.tiles_list[y][x].tile_type != "start":
                     tiles_list_free.append(self.tiles_list[y][x])
-        print("nb of not blocking tiles: ", len(tiles_list_free))
-        rand = random.randrange(0, len(tiles_list_free))
-        tiles_list_free[rand].add_element("syringe")
-
-        # x = random.randrange(0, self.width)
-        # y = random.randrange(0, self.height)
-        # syringe_x, syringe_y = x, y
-        # print("Syringe coord:", syringe_x, syringe_y)
-        # self.tiles_list[y][x].add_element("syringe")
-
+        for item in items_list:
+            rand = random.randrange(0, len(tiles_list_free))
+            tiles_list_free[rand].add_element(item)
+            print(item, tiles_list_free[rand].x, tiles_list_free[rand].y)
 
     def can_move(self, x, y):
         """Returns True if tile is free to move to, or to get an element added,
