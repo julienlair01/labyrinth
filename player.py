@@ -1,13 +1,13 @@
 # coding: utf-8
 
-import pygame, sys, level, graphelement
+import pygame, sys, level
 from pygame.locals import *
 
-class Player(pygame.sprite.Sprite, graphelement.GraphElement):
+class Player(pygame.sprite.Sprite):
 
     def __init__(self, level):
         super().__init__() 
-        self.x, self.y = level.startTile
+        self.x, self.y = level.getStartTile()
         self.image = pygame.image.load("assets/macgyver.png")
         self.surf = pygame.Surface((50, 50))
         self.rect = self.surf.get_rect(topleft = (50 * self.x, 50 * self.y))

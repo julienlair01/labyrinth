@@ -7,27 +7,29 @@ class Level:
     def __init__(self):
         self.tilesList = []
         self.generateLevel("levelconfig.ini")
-        self.startTile = self.getStartTile()
-        self.exitTile = self.getExitTile()
 
     def generateLevel(self, levelConfigfilename = "levelconfig.ini"):
         """Creates map individual tiles in the tilesList table, based on the layout in the config file"""
         config = configparser.ConfigParser()
         config.read(levelConfigfilename)
         map = config.get("level", "layout").split("\n")
-        self.calculateSize(map)
+        self.width = self.getWidth(map)
+        self.height = self.getHeight(map)
         for y in range(self.height):
             for x in range(self.width):
-                block = config.getboolean(map[y][x], "block")
+                isBlocking = config.getboolean(map[y][x], "block")
                 tileType = config.get(map[y][x], "name")
                 image = config.get(map[y][x], "bg_image")
-                self.tilesList.append(tile.Tile(tileType, image, x, y, block))
+                self.tilesList.append(tile.Tile(tileType, image, x, y, isBlocking))
         self.tilesList = [self.tilesList[x:x+self.width] for x in range(0, len(self.tilesList), self.width)]
 
-    def calculateSize(self, map):
-        """Measures the size of the map, according to the layout"""
-        self.height = len(map)
-        self.width = len(map[0])
+    def getWidth(self, map):
+        """Returns width of the level, in number of tiles"""
+        return len(map[0])
+
+    def getHeight(self, map):
+        """Returns height of the level, in number of tiles"""
+        return len(map)
 
     def getStartTile(self):  
         """Returns the position of the start tile in the tilesList table"""
@@ -49,7 +51,7 @@ class Level:
 
 
     def isExitTile(self, x, y):
-        return (x, y) == self.exitTile
+        return (x, y) == self.getExitTile()
 
 
     def canMove(self, x, y):
