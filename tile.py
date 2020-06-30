@@ -3,12 +3,12 @@ import pygame, element
 from pygame.locals import *
 
 class Tile():
-    def __init__(self, tileType, image, x, y, block):
+    def __init__(self, tileType, image, x, y, isBlocking):
         self.tileType = tileType
         self.x = x
         self.y = y
-        self.block = block
-        self.elements = []
+        self.isBlocking = isBlocking
+
         if self.tileType == "wall": # problem with pygame when loading image through image variable (pygame can't load the image), now using hardcoded values
             self.image = pygame.image.load("assets/wall.png")
         else:
@@ -22,10 +22,10 @@ class Tile():
     def addElement(self, elementType):
         """Adds an element on the tile (guard or item)"""
         if elementType == "guard":
-            self.elements.append(element.Element(self.x, self.y, self.tileType, "assets/Gardien.png"))
+            self.element = element.Element(self.x, self.y, elementType, "assets/Gardien.png")
     
     def getInfo(self):
-        return {"tileType": self.tileType, "block": self.block}
+        return {"tileType": self.tileType, "isBlocking": self.isBlocking}
 
     def draw(self, surface):
         """Draws the single tile"""
