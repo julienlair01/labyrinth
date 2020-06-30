@@ -10,7 +10,7 @@ class Level:
         self.tiles_list = []
         self.generate_level("levelconfig.ini")
 
-    def generate_level(self, level_config_name="levelconfig.ini"):
+    def generate_level(self, level_config_name="level_config.ini"):
         """Creates map individual tiles in the tiles_list table, based on the layout in the config file"""
         config = configparser.ConfigParser()
         config.read(level_config_name)
