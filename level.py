@@ -1,5 +1,6 @@
 # coding: utf-8
 
+import random
 import configparser
 import tile
 
@@ -23,10 +24,10 @@ class Level:
                 is_blocking = config.getboolean(map[y][x], "block")
                 tile_type = config.get(map[y][x], "name")
                 image = config.get(map[y][x], "bg_image")
-                self.tiles_list.append(tile.Tile(
-                    tile_type, image, x, y, is_blocking))
-        self.tiles_list = [self.tiles_list[x:x+self.width]for x in range(
-            0, len(self.tiles_list), self.width)]
+                self.tiles_list.append(tile.Tile(tile_type, image, x, y, is_blocking))
+        self.tiles_list = [self.tiles_list[x:x+self.width]for x in range(0, len(self.tiles_list), self.width)]
+        self.generate_items()
+
 
     def get_width(self, map):
         """Returns width of the level, in number of tiles"""
@@ -53,13 +54,32 @@ class Level:
                     return self.tiles_list[y][x].x, self.tiles_list[y][x].y
         return None
 
-    def is_exit_tile(self, x, y):
-        return (x, y) == self.get_exit_tile()
+    def generate_items(self):
+        """Position the 3 items Macgyved needs to pick on the grid"""
+        tiles_list_free = []
+        forbidden_tiles = []
+        for y in range(self.height):
+            for x in range(self.width):
+                if not self.tiles_list[y][x].is_blocking and self.tiles_list[y][x].tile_type != "exit" and self.tiles_list[y][x].tile_type != "start":
+                    tiles_list_free.append(self.tiles_list[y][x])
+        print("nb of not blocking tiles: ", len(tiles_list_free))
+        rand = random.randrange(0, len(tiles_list_free))
+        tiles_list_free[rand].add_element("syringe")
+
+        # x = random.randrange(0, self.width)
+        # y = random.randrange(0, self.height)
+        # syringe_x, syringe_y = x, y
+        # print("Syringe coord:", syringe_x, syringe_y)
+        # self.tiles_list[y][x].add_element("syringe")
+
 
     def can_move(self, x, y):
         """Returns True if tile is free to move to, or to get an element added,
         False if it is blocked"""
         return not self.tiles_list[y][x].is_blocking
+
+    def is_exit_tile(self, x, y):
+        return (x, y) == self.get_exit_tile()
 
     def draw(self, displaysurf):
         """Draws the map by drawing each tile of the grid,
