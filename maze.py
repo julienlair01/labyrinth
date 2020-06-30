@@ -12,12 +12,11 @@ TILESIZE = 50
 
 level = level.Level()
 player = player.Player(level)
-exitX, exitY = level.getExitTile()
 
 pygame.display.set_caption("Escape MacGyver") 
 foundExit = False
 
-while not foundExit:
+while not player.hasFoundExit(level):
     
     DISPLAYSURF = pygame.display.set_mode((50 * level.width, 50 * level.height))
     level.draw(DISPLAYSURF)
@@ -29,9 +28,8 @@ while not foundExit:
       
     player.update(50 * level.height, 50 * level.width, level)
     player.draw(DISPLAYSURF)
-    foundExit = player.hasFoundExit(level)
 
-    if foundExit:
+    if player.hasFoundExit(level):
         print("Congrats, you escaped!")
 
     FramePerSec.tick(FPS)
