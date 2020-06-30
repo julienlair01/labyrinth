@@ -8,7 +8,7 @@ class Level:
 
     def __init__(self):
         self.tiles_list = []
-        self.generate_level("levelconfig.ini")
+        self.generate_level("level_config.ini")
 
     def generate_level(self, level_config_name="level_config.ini"):
         """Creates map individual tiles in the tiles_list table,

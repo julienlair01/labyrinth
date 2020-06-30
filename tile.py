@@ -13,9 +13,9 @@ class Tile():
         self.y = y
         self.is_blocking = is_blocking
         if self.tile_type == "wall":
-            self.image = pygame.image.load("assets/wall.png")
+            self.image = pygame.image.load(image)
         else:
-            self.image = pygame.image.load("assets/floor.png")
+            self.image = pygame.image.load(image)
         if self.tile_type == "exit":
             self.add_element("guard")
         self.surf = pygame.Surface((50, 50))
@@ -25,7 +25,7 @@ class Tile():
         """Adds an element on the tile (guard or item)"""
         if element_type == "guard":
             self.element = element.Element(self.x, self.y, element_type, "assets/Gardien.png")
-
+            
     def get_info(self):
         return {"tile_type": self.tile_type, "is_blocking": self.is_blocking}
 
