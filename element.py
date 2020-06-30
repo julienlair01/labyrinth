@@ -5,6 +5,7 @@ from pygame.locals import *
 
 class Element:
 
+
     def __init__(self, x, y, content, image):
         self.content = content
         if self.content == "guard":

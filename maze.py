@@ -1,7 +1,12 @@
 # coding: utf-8
 
-import level, tile, pprint, pygame, sys, player, element
+import sys
+import pygame
 from pygame.locals import *
+import level
+import tile
+import player
+import element
 
 # Initialize program
 pygame.init()
@@ -16,7 +21,7 @@ player = player.Player(level)
 pygame.display.set_caption("Escape MacGyver") 
 foundExit = False
 
-while not player.hasFoundExit(level):
+while not player.has_found_exit(level):
     
     DISPLAYSURF = pygame.display.set_mode((50 * level.width, 50 * level.height))
     level.draw(DISPLAYSURF)
@@ -26,10 +31,10 @@ while not player.hasFoundExit(level):
             pygame.quit()
             sys.exit()
       
-    player.update(50 * level.height, 50 * level.width, level)
+    player.update(level, 50 * level.width, 50 * level.height)
     player.draw(DISPLAYSURF)
 
-    if player.hasFoundExit(level):
+    if player.has_found_exit(level):
         print("Congrats, you escaped!")
 
     FramePerSec.tick(FPS)

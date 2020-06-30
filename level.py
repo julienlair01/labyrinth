@@ -1,71 +1,69 @@
 # coding: utf-8
 
-import configparser, tile
+import configparser
+import tile
 
 class Level:
     
-    def __init__(self):
-        self.tilesList = []
-        self.generateLevel("levelconfig.ini")
 
-    def generateLevel(self, levelConfigfilename = "levelconfig.ini"):
-        """Creates map individual tiles in the tilesList table, based on the layout in the config file"""
+    def __init__(self):
+        self.tiles_list = []
+        self.generate_level("levelconfig.ini")
+
+    def generate_level(self, level_config_name="levelconfig.ini"):
+        """Creates map individual tiles in the tiles_list table, based on the layout in the config file"""
         config = configparser.ConfigParser()
-        config.read(levelConfigfilename)
+        config.read(level_config_name)
         map = config.get("level", "layout").split("\n")
-        self.width = self.getWidth(map)
-        self.height = self.getHeight(map)
+        self.width = self.get_width(map)
+        self.height = self.get_height(map)
         for y in range(self.height):
             for x in range(self.width):
-                isBlocking = config.getboolean(map[y][x], "block")
-                tileType = config.get(map[y][x], "name")
+                is_blocking = config.getboolean(map[y][x], "block")
+                tile_type = config.get(map[y][x], "name")
                 image = config.get(map[y][x], "bg_image")
-                self.tilesList.append(tile.Tile(tileType, image, x, y, isBlocking))
-        self.tilesList = [self.tilesList[x:x+self.width] for x in range(0, len(self.tilesList), self.width)]
+                self.tiles_list.append(tile.Tile(tile_type, image, x, y, is_blocking))
+        self.tiles_list = [self.tiles_list[x:x+self.width] for x in range(0, len(self.tiles_list), self.width)]
 
-    def getWidth(self, map):
+    def get_width(self, map):
         """Returns width of the level, in number of tiles"""
         return len(map[0])
 
-    def getHeight(self, map):
+    def get_height(self, map):
         """Returns height of the level, in number of tiles"""
         return len(map)
 
-    def getStartTile(self):  
-        """Returns the position of the start tile in the tilesList table"""
+    def get_start_tile(self):  
+        """Returns the position of the start tile in the tiles_list table"""
         for y in range(self.height):
             for x in range(self.width):   
-                if self.tilesList[y][x].tileType == "start":
+                if self.tiles_list[y][x].tile_type == "start":
                     print("Found start tile:", x, y)
-                    return self.tilesList[y][x].x, self.tilesList[y][x].y
+                    return self.tiles_list[y][x].x, self.tiles_list[y][x].y
         return None 
 
-
-    def getExitTile(self):
-        """Returns the position of the exit tile in the tilesList table """
+    def get_exit_tile(self):
+        """Returns the position of the exit tile in the tiles_list table """
         for y in range(self.height):
             for x in range(self.width):
-                if self.tilesList[y][x].tileType == "exit":
-                    return self.tilesList[y][x].x, self.tilesList[y][x].y
+                if self.tiles_list[y][x].tile_type == "exit":
+                    return self.tiles_list[y][x].x, self.tiles_list[y][x].y
         return None 
 
+    def is_exit_tile(self, x, y):
+        return (x, y) == self.get_exit_tile()
 
-    def isExitTile(self, x, y):
-        return (x, y) == self.getExitTile()
-
-
-    def canMove(self, x, y):
+    def can_move(self, x, y):
         """Returns True if tile is free to move to, or to get an element added, False if it is blocked"""
-        return self.tilesList[y][x].isBlocking == False
-
+        return not self.tiles_list[y][x].is_blocking
 
     def draw(self, displaysurf):
         """Draws the map by drawing each tile of the grid, and the element of the tile"""
         for y in range (0, self.height):
             for x in range (0, self.width):
-                self.tilesList[y][x].draw(displaysurf)
+                self.tiles_list[y][x].draw(displaysurf)
                 try:
-                    if self.tilesList[y][x].element:
-                        self.tilesList[y][x].element.draw(displaysurf)
+                    if self.tiles_list[y][x].element:
+                        self.tiles_list[y][x].element.draw(displaysurf)
                 except AttributeError:
                     continue
