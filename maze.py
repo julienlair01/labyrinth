@@ -27,14 +27,12 @@ while not end_of_game:
             sys.exit()
     player.update(level, 50 * level.width, 50 * level.height)
     player.draw(DISPLAYSURF)
-    if player.has_found_exit(level):
-        i = 0
-        for value in player.dict_bag.values():
-            i += 1
-        if i == 3:
+    if player.has_found_exit(level) and player.has_picked_items():
             print("Congrats, you escaped!")
             end_of_game = True
-        else:
+    elif player.has_found_exit(level) and not player.has_picked_items():
             print("Ooops... you lost!")
             end_of_game = True
+
+
     FramePerSec.tick(FPS)

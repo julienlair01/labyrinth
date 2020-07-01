@@ -26,8 +26,7 @@ class Level:
                 image = config.get(map[y][x], "bg_image")
                 self.tiles_list.append(tile.Tile(tile_type, image, x, y, is_blocking))
         self.tiles_list = [self.tiles_list[x:x+self.width]for x in range(0, len(self.tiles_list), self.width)]
-        self.generate_items()
-
+        self.drop_items_on_grid()
 
     def get_width(self, map):
         """Returns width of the level, in number of tiles"""
@@ -53,18 +52,18 @@ class Level:
                     return self.tiles_list[y][x].x, self.tiles_list[y][x].y
         return None
 
-    def generate_items(self):
-        """Position the 3 items Macgyved needs to pick on the grid"""
+    def drop_items_on_grid(self):
+        """Position the 3 items Macgyver must pick to escape"""
         items_list = ["tube", "needle", "ether"]
-        tiles_list_free = []
+        free_tiles_list = []
         for y in range(self.height):
             for x in range(self.width):
                 if not self.tiles_list[y][x].is_blocking and self.tiles_list[y][x].tile_type != "exit" and self.tiles_list[y][x].tile_type != "start":
-                    tiles_list_free.append(self.tiles_list[y][x])
+                    free_tiles_list.append(self.tiles_list[y][x])
         for item in items_list:
-            rand = random.randrange(0, len(tiles_list_free))
-            tiles_list_free[rand].add_element(item)
-            print("Added element:", tiles_list_free[rand].element.content)
+            index = random.randrange(0, len(free_tiles_list))
+            free_tiles_list[index].add_element(item)
+            print("Added element:", free_tiles_list[index].element.content)
 
     def can_move(self, x, y):
         """Returns True if tile is free to move to, or to get an element added,
