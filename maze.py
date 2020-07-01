@@ -22,7 +22,7 @@ while not player.has_found_exit(level):
     DISPLAYSURF = pygame.display.set_mode((50 * level.width, 50 * level.height))
     level.draw(DISPLAYSURF)
     for event in pygame.event.get():
-        if event.type == QUIT:
+        if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
     player.update(level, 50 * level.width, 50 * level.height)

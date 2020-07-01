@@ -10,6 +10,7 @@ class Player(pygame.sprite.Sprite):
     def __init__(self, level):
         super().__init__()
         self.x, self.y = level.get_start_tile()
+        self.bag = []
         self.image = pygame.image.load("assets/macgyver.png")
         self.surf = pygame.Surface((50, 50))
         self.rect = self.surf.get_rect(topleft=(50 * self.x, 50 * self.y))
@@ -24,19 +25,38 @@ class Player(pygame.sprite.Sprite):
         Move is not allowed if the target tile
         is blocked by something (e.g. a wall)"""
         pressed_keys = pygame.key.get_pressed()
-        if self.rect.top > 0 and pressed_keys[K_UP] and level.can_move(self.x, self.y - 1):
+        if self.rect.top > 0 and pressed_keys[pygame.K_UP] and level.can_move(self.x, self.y - 1):
             self.rect.move_ip(0, -50)
             self.y -= 1
-        if self.rect.bottom < screen_height and pressed_keys[K_DOWN] and level.can_move(self.x, self.y + 1):
+            if level.tile_has_element(self.x, self.y) in self.bag:
+                element = level.tile_has_element(self.x, self.y)
+                self.bag.append(element)
+                print("Picked", element.content)
+        if self.rect.bottom < screen_height and pressed_keys[pygame.K_DOWN] and level.can_move(self.x, self.y + 1):
             self.rect.move_ip(0, 50)
             self.y += 1
-        if self.rect.left > 0 and pressed_keys[K_LEFT] and level.can_move(self.x - 1, self.y):
+            if level.tile_has_element(self.x, self.y) in self.bag:
+                element = level.tile_has_element(self.x, self.y)
+                self.bag.append(element)
+                print("Picked", element.content)         
+        if self.rect.left > 0 and pressed_keys[pygame.K_LEFT] and level.can_move(self.x - 1, self.y):
             self.rect.move_ip(-50, 0)
             self.x -= 1
-        if self.rect.right < screen_width and pressed_keys[K_RIGHT] and level.can_move(self.x + 1, self.y):
+            if level.tile_has_element(self.x, self.y) in self.bag:
+                element = level.tile_has_element(self.x, self.y)
+                self.bag.append(element)
+                print("Picked", element.content)
+        if self.rect.right < screen_width and pressed_keys[pygame.K_RIGHT] and level.can_move(self.x + 1, self.y):
             self.rect.move_ip(50, 0)
             self.x += 1
-
+            if level.tile_has_element(self.x, self.y) in self.bag:
+                element = level.tile_has_element(self.x, self.y)
+                self.bag.append(element)
+                print("Picked", element.content)
     def has_found_exit(self, level):
         """Returns True if the player reached the exit tile"""
         return level.is_exit_tile(self.x, self.y)
+
+    def has_found_element(self, level, element):
+        if element == "needle":
+            print("Picked needle !!!!")

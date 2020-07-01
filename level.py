@@ -42,7 +42,6 @@ class Level:
         for y in range(self.height):
             for x in range(self.width):
                 if self.tiles_list[y][x].tile_type == "start":
-                    print("Found start tile:", x, y)
                     return self.tiles_list[y][x].x, self.tiles_list[y][x].y
         return None
 
@@ -65,7 +64,7 @@ class Level:
         for item in items_list:
             rand = random.randrange(0, len(tiles_list_free))
             tiles_list_free[rand].add_element(item)
-            print(item, tiles_list_free[rand].x, tiles_list_free[rand].y)
+            print("Added element:", tiles_list_free[rand].element.content)
 
     def can_move(self, x, y):
         """Returns True if tile is free to move to, or to get an element added,
@@ -74,6 +73,13 @@ class Level:
 
     def is_exit_tile(self, x, y):
         return (x, y) == self.get_exit_tile()
+
+    def tile_has_element(self, x, y):
+        try:
+            if self.tiles_list[y][x].element:
+                return self.tiles_list[y][x].element
+        except AttributeError:
+            pass
 
     def draw(self, displaysurf):
         """Draws the map by drawing each tile of the grid,
