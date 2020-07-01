@@ -8,8 +8,10 @@ class Element:
 
     def __init__(self, x, y, content, image):
         self.content = content
+        self.is_pickable = True
         if self.content == "guard":
             self.image = pygame.image.load("assets/Gardien.png")
+            self.is_pickable = False
         elif self.content == "tube":
             self.image = pygame.image.load("assets/tube_plastique.png")
         elif self.content == "needle":

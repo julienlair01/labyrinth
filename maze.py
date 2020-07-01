@@ -16,9 +16,9 @@ FramePerSec = pygame.time.Clock()
 level = level.Level()
 player = player.Player(level)
 pygame.display.set_caption("Escape MacGyver")
-foundExit = False
+end_of_game = False
 
-while not player.has_found_exit(level):
+while not end_of_game:
     DISPLAYSURF = pygame.display.set_mode((50 * level.width, 50 * level.height))
     level.draw(DISPLAYSURF)
     for event in pygame.event.get():
@@ -28,5 +28,13 @@ while not player.has_found_exit(level):
     player.update(level, 50 * level.width, 50 * level.height)
     player.draw(DISPLAYSURF)
     if player.has_found_exit(level):
-        print("Congrats, you escaped!")
+        i = 0
+        for value in player.dict_bag.values():
+            i += 1
+        if i == 3:
+            print("Congrats, you escaped!")
+            end_of_game = True
+        else:
+            print("Ooops... you lost!")
+            end_of_game = True
     FramePerSec.tick(FPS)

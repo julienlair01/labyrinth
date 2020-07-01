@@ -76,7 +76,7 @@ class Level:
 
     def tile_has_element(self, x, y):
         try:
-            if self.tiles_list[y][x].element:
+            if self.tiles_list[y][x].element.is_pickable:
                 return self.tiles_list[y][x].element
         except AttributeError:
             pass
