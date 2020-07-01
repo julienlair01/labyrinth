@@ -13,7 +13,7 @@ class Element:
             self.image = pygame.image.load("assets/Gardien.png")
             self.is_pickable = False
         elif self.content == "tube":
-            self.image = pygame.image.load("assets/tube_plastique.png")
+            self.image = pygame.image.load("assets/plastic_tube.png")
         elif self.content == "needle":
             self.image = pygame.image.load("assets/syringe.png")
         elif self.content == "ether":

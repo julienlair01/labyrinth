@@ -63,7 +63,6 @@ class Level:
         for item in items_list:
             index = random.randrange(0, len(free_tiles_list))
             free_tiles_list[index].add_element(item)
-            print("Added element:", free_tiles_list[index].element.content)
 
     def can_move(self, x, y):
         """Returns True if tile is free to move to, or to get an element added,

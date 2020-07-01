@@ -38,7 +38,6 @@ class Player(pygame.sprite.Sprite):
         if self.rect.right < screen_width and pressed_keys[pygame.K_RIGHT] and level.can_move(self.x + 1, self.y):
             self.rect.move_ip(50, 0)
             self.x += 1
-
         self.has_found_element(level)
 
     def has_found_exit(self, level):
@@ -50,8 +49,8 @@ class Player(pygame.sprite.Sprite):
                 element = level.tile_has_element(self.x, self.y)
                 self.bag.append(element)
                 self.dict_bag[element.content] = 1
-                print("Picked", element.content) 
+                print("Picked", element.content)
     
-    def has_picked_items(self):
+    def has_picked_all_items(self):
         """Returns True if the player reached the exit tile"""
         return len(self.bag) == 3

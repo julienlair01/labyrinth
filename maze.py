@@ -19,7 +19,7 @@ pygame.display.set_caption("Escape MacGyver")
 end_of_game = False
 
 while not end_of_game:
-    DISPLAYSURF = pygame.display.set_mode((50 * level.width, 50 * level.height))
+    DISPLAYSURF = pygame.display.set_mode((50 * level.width, 50 * level.height + 50))
     level.draw(DISPLAYSURF)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -27,12 +27,11 @@ while not end_of_game:
             sys.exit()
     player.update(level, 50 * level.width, 50 * level.height)
     player.draw(DISPLAYSURF)
-    if player.has_found_exit(level) and player.has_picked_items():
+    if player.has_found_exit(level):
+        end_of_game = True
+        if player.has_picked_all_items():
             print("Congrats, you escaped!")
-            end_of_game = True
-    elif player.has_found_exit(level) and not player.has_picked_items():
+        else:
             print("Ooops... you lost!")
-            end_of_game = True
-
 
     FramePerSec.tick(FPS)

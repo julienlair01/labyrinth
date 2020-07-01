@@ -26,7 +26,7 @@ class Tile():
         if element_type == "guard":
             self.element = element.Element(self.x, self.y, element_type, "assets/Gardien.png")
         elif element_type == "tube":
-            self.element = element.Element(self.x, self.y, element_type, "assets/tube_plastique.png")
+            self.element = element.Element(self.x, self.y, element_type, "assets/plastic_tube.png")
         elif element_type == "needle":
             self.element = element.Element(self.x, self.y, element_type, "assets/syringe.png")
         elif element_type == "ether":
