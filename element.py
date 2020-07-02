@@ -3,8 +3,6 @@
 import os
 
 import pygame
-from pygame.locals import *
-
 
 class Element:
 
