@@ -4,7 +4,7 @@ This is a little game written in Python, where you need to help Macgyver escape 
 The player will first need to pick 3 items to make the guard asleep, and safely escape.
 https://github.com/julienlair01/maze
 
-## Instructiions
+## Instructions
 1. Create virtual env
 2. Install dependencies by running: pip install -r requirements.txt
 3. Run the program by running: python3 maze.py
