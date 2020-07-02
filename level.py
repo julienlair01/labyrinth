@@ -45,7 +45,7 @@ class Level:
         for y in range(self.height):
             for x in range(self.width):
                 if self.tiles_list[y][x].tile_type == "start":
-                    return self.tiles_list[y][x].pos_x, self.tiles_list[y][x].pos_y
+                    return self.tiles_list[y][x].x, self.tiles_list[y][x].y
         return None
 
     def get_exit_tile(self):
@@ -53,7 +53,7 @@ class Level:
         for y in range(self.height):
             for x in range(self.width):
                 if self.tiles_list[y][x].tile_type == "exit":
-                    return self.tiles_list[y][x].pos_x, self.tiles_list[y][x].pos_y
+                    return self.tiles_list[y][x].x, self.tiles_list[y][x].y
         return None
 
     def drop_items_on_grid(self):
@@ -62,8 +62,10 @@ class Level:
         items_list = ["plastic_tube", "needle", "ether"]
         free_tiles_list = []
         for y in range(self.height):
-            for x in range(self.width): ## TODO fonction is_free
-                if not self.tiles_list[y][x].is_blocking and self.tiles_list[y][x].tile_type != "exit" and self.tiles_list[y][x].tile_type != "start":
+            for x in range(self.width):
+                if not self.tiles_list[y][x].is_blocking and \
+                    self.tiles_list[y][x].tile_type != "exit" and \
+                    self.tiles_list[y][x].tile_type != "start":
                     free_tiles_list.append(self.tiles_list[y][x])
         for item in items_list:
             index = random.randrange(0, len(free_tiles_list))
@@ -79,14 +81,12 @@ class Level:
             know whether the player reached the exit of the maze or not. """
         return (x, y) == self.get_exit_tile()
 
-    def get_tile_element(self, x, y): ## pick tile element
+    def get_tile_element(self, x, y):
         """ Returns the element present on the tile where the player stands.
             This will be used to know if there is an item to be picked. """
         try:
-            if self.tiles_list[y][x].element and self.tiles_list[y][x].element.is_pickable:
-                element = self.tiles_list[y][x].element
-                self.tiles_list[y][x].element = None
-                return element
+            if self.tiles_list[y][x].element.is_pickable:
+                return self.tiles_list[y][x].element
             else:
                 return None
         except AttributeError:

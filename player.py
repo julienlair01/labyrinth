@@ -13,18 +13,18 @@ class Player(pygame.sprite.Sprite):
     """ Player class docstring"""
     def __init__(self, level):
         super().__init__()
-        self.pos_x, self.pos_y = level.get_start_tile()
+        self.x, self.y = level.get_start_tile()
         self.bag = []
         absolute_path = os.path.join(os.path.dirname(__file__), "assets", "MacGyver.png")
         self.image = pygame.image.load(absolute_path)
         self.surf = pygame.Surface((TILESIZE, TILESIZE))
-        self.rect = self.surf.get_rect(topleft=(TILESIZE * self.pos_x, TILESIZE * self.pos_y))
+        self.rect = self.surf.get_rect(topleft=(TILESIZE * self.x, TILESIZE * self.y))
 
     def draw(self, surface):
         """Draws the player on the grid"""
         surface.blit(self.image, self.rect)
     
-    def draw_bag(self, surface): ## TODO move to player.draw
+    def draw_bag(self, surface):
         try:
             for index, value in enumerate(self.bag):
                 surf = pygame.Surface((TILESIZE, TILESIZE))
@@ -42,30 +42,33 @@ class Player(pygame.sprite.Sprite):
         Move is not allowed if the target tile is blocked by something
         (wall or map boundary)"""
         pressed_keys = pygame.key.get_pressed()
-        if self.rect.top > 0 and pressed_keys[K_UP]and level.can_move(self.pos_x, self.pos_y - 1):
+        if self.rect.top > 0 and pressed_keys[K_UP]and level.can_move(self.x, self.y - 1):
             self.rect.move_ip(0, -TILESIZE)
-            self.pos_y -= 1
-        if self.rect.bottom < screen_height and pressed_keys[K_DOWN] and level.can_move(self.pos_x, self.pos_y + 1):
+            self.y -= 1
+        if self.rect.bottom < screen_height and pressed_keys[K_DOWN] and level.can_move(self.x, self.y + 1):
             self.rect.move_ip(0, TILESIZE)
-            self.pos_y += 1
-        if self.rect.left > 0 and pressed_keys[K_LEFT] and level.can_move(self.pos_x - 1, self.pos_y):
+            self.y += 1
+        if self.rect.left > 0 and pressed_keys[K_LEFT] and level.can_move(self.x - 1, self.y):
             self.rect.move_ip(-TILESIZE, 0)
-            self.pos_x -= 1
-        if self.rect.right < screen_width and pressed_keys[K_RIGHT] and level.can_move(self.pos_x + 1, self.pos_y):
+            self.x -= 1
+        if self.rect.right < screen_width and pressed_keys[K_RIGHT] and level.can_move(self.x + 1, self.y):
             self.rect.move_ip(TILESIZE, 0)
-            self.pos_x += 1
+            self.x += 1
         self.pick_item(level)
 
     def has_found_exit(self, level):
         """Returns True if the player reached the exit tile"""
-        return level.is_exit_tile(self.pos_x, self.pos_y)
+        return level.is_exit_tile(self.x, self.y)
 
     def pick_item(self, level):
         """ If there is an item on the tile,
             picks it and put in MacGyver's bag """
-        if level.get_tile_element(self.pos_x, self.pos_y) and level.get_tile_element(self.pos_x, self.pos_y) not in self.bag: ## remove not in
-            self.bag.append(level.get_tile_element(self.pos_x, self.pos_y))
-            level.get_tile_element(self.pos_x, self.pos_y).is_picked = True
+        try:
+            if level.get_tile_element(self.x, self.y) and level.get_tile_element(self.x, self.y) not in self.bag:
+                self.bag.append(level.get_tile_element(self.x, self.y))
+                level.get_tile_element(self.x, self.y).is_picked = True
+        except AttributeError:
+            pass
 
     def has_picked_all_items(self):
         """Checks if Player has picked all 3 items"""
