@@ -1,17 +1,20 @@
 # coding: utf-8
-
+""" This is the main file of the Escape MacGyver game.
+    It initializes main game objects,
+    and contains the main game loop """
 import sys
+
 import pygame
-from pygame.locals import *
+from pygame.locals import QUIT
+
 import level
-import tile
 import player
-import element
 
 FPS = 30
 TILESIZE = 50
 
 pygame.init()
+pygame.font.init()
 FramePerSec = pygame.time.Clock()
 level = level.Level()
 player = player.Player(level)
@@ -22,7 +25,7 @@ while not end_of_game:
     DISPLAYSURF = pygame.display.set_mode((50 * level.width, 50 * level.height + 50))
     level.draw(DISPLAYSURF)
     for event in pygame.event.get():
-        if event.type == pygame.QUIT:
+        if event.type == QUIT:
             pygame.quit()
             sys.exit()
     player.update(level, 50 * level.width, 50 * level.height)

@@ -1,7 +1,9 @@
 # coding: utf-8
 
 import random
+
 import configparser
+
 import tile
 
 
@@ -16,25 +18,25 @@ class Level:
         based on the layout in the config file"""
         config = configparser.ConfigParser()
         config.read(level_config_name)
-        map = config.get("level", "layout").split("\n")
-        self.width = self.get_width(map)
-        self.height = self.get_height(map)
+        map_layout = config.get("level", "layout").split("\n")
+        self.width = self.get_width(map_layout)
+        self.height = self.get_height(map_layout)
         for y in range(self.height):
             for x in range(self.width):
-                is_blocking = config.getboolean(map[y][x], "is_blocking")
-                tile_type = config.get(map[y][x], "name")
-                image = config.get(map[y][x], "image")
+                is_blocking = config.getboolean(map_layout[y][x], "is_blocking")
+                tile_type = config.get(map_layout[y][x], "name")
+                image = config.get(map_layout[y][x], "image")
                 self.tiles_list.append(tile.Tile(tile_type, image, x, y, is_blocking))
         self.tiles_list = [self.tiles_list[x:x+self.width]for x in range(0, len(self.tiles_list), self.width)]
         self.drop_items_on_grid()
 
-    def get_width(self, map):
+    def get_width(self, map_layout):
         """Returns width of the level, in number of tiles"""
-        return len(map[0])
+        return len(map_layout[0])
 
-    def get_height(self, map):
+    def get_height(self, map_layout):
         """Returns height of the level, in number of tiles"""
-        return len(map)
+        return len(map_layout)
 
     def get_start_tile(self):
         """Returns the position of the start tile in the tiles_list table"""
@@ -72,7 +74,7 @@ class Level:
     def is_exit_tile(self, x, y):
         return (x, y) == self.get_exit_tile()
 
-    def get_tilepip _element(self, x, y):
+    def get_tile_element(self, x, y):
         try:
             if self.tiles_list[y][x].element.is_pickable:
                 return self.tiles_list[y][x].element
