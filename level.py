@@ -42,18 +42,18 @@ class Level:
 
     def get_start_tile(self):
         """ Returns the position of the start tile in the tiles_list table. """
-        for y in range(self.height):
-            for x in range(self.width):
-                if self.tiles_list[y][x].tile_type == "start":
-                    return self.tiles_list[y][x].x, self.tiles_list[y][x].y
+        for pos_y in range(self.height):
+            for pos_x in range(self.width):
+                if self.tiles_list[pos_y][pos_x].tile_type == "start":
+                    return pos_x, pos_y
         return None
 
     def get_exit_tile(self):
         """ Returns the position of the exit tile in the tiles_list table. """
-        for y in range(self.height):
-            for x in range(self.width):
-                if self.tiles_list[y][x].tile_type == "exit":
-                    return self.tiles_list[y][x].x, self.tiles_list[y][x].y
+        for pos_y in range(self.height):
+            for pos_x in range(self.width):
+                if self.tiles_list[pos_y][pos_x].tile_type == "exit":
+                    return pos_x, pos_y
         return None
 
     def drop_items_on_grid(self):
@@ -61,31 +61,31 @@ class Level:
             It uses a temporary list of available tiles (no wall / character). """
         items_list = ["plastic_tube", "needle", "ether"]
         free_tiles_list = []
-        for y in range(self.height):
-            for x in range(self.width):
-                if not self.tiles_list[y][x].is_blocking and \
-                    self.tiles_list[y][x].tile_type != "exit" and \
-                    self.tiles_list[y][x].tile_type != "start":
-                    free_tiles_list.append(self.tiles_list[y][x])
+        for pos_y in range(self.height):
+            for pos_x in range(self.width):
+                if not self.tiles_list[pos_y][pos_x].is_blocking and \
+                    self.tiles_list[pos_y][pos_x].tile_type != "exit" and \
+                    self.tiles_list[pos_y][pos_x].tile_type != "start":
+                    free_tiles_list.append(self.tiles_list[pos_y][pos_x])
         for item in items_list:
             index = random.randrange(0, len(free_tiles_list))
             free_tiles_list[index].add_element(item)
 
-    def can_move(self, x, y):
+    def can_move(self, pos_x, pos_y):
         """ Returns True if tile is free to move to, False if it is blocked. """
-        return not self.tiles_list[y][x].is_blocking
+        return not self.tiles_list[pos_y][pos_x].is_blocking
 
-    def is_exit_tile(self, x, y):
+    def is_exit_tile(self, pos_x, pos_y):
         """ Returns True if the tile is the exit tile, where the guard stands.
             It is used to position the guard at the game initilization and to
             know whether the player reached the exit of the maze or not. """
-        return (x, y) == self.get_exit_tile()
+        return (pos_x, pos_y) == self.get_exit_tile()
 
-    def pick_element(self, x, y):
+    def pick_element(self, pos_x, pos_y):
         """ Returns the element present on the tile where the player stands. """
-        if self.tiles_list[y][x].element and self.tiles_list[y][x].element.is_pickable:
-            element = self.tiles_list[y][x].element
-            self.tiles_list[y][x].element = None
+        if self.tiles_list[pos_y][pos_x].element and self.tiles_list[pos_y][pos_x].element.is_pickable:
+            element = self.tiles_list[pos_y][pos_x].element
+            self.tiles_list[pos_y][pos_x].element = None
             return element
         else:
             return None
@@ -93,11 +93,11 @@ class Level:
     def draw(self, displaysurf):
         """Draws the map by drawing each tile of the grid,
         and the element located on the tile"""
-        for y in range(0, self.height):
-            for x in range(0, self.width):
-                self.tiles_list[y][x].draw(displaysurf)
+        for pos_y in range(0, self.height):
+            for pos_x in range(0, self.width):
+                self.tiles_list[pos_y][pos_x].draw(displaysurf)
                 try:
-                    if self.tiles_list[y][x].element:
-                        self.tiles_list[y][x].element.draw(displaysurf)
+                    if self.tiles_list[pos_y][pos_x].element:
+                        self.tiles_list[pos_y][pos_x].element.draw(displaysurf)
                 except AttributeError:
                     continue

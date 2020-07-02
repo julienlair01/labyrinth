@@ -8,7 +8,7 @@ from constants import TILESIZE
 
 class Element:
 
-    def __init__(self, x, y, content, image):
+    def __init__(self, pos_x, pos_y, content, image):
         self.content = content
         absolute_path = os.path.join(os.path.dirname(__file__), image)
         self.image = pygame.image.load(absolute_path)
@@ -18,7 +18,7 @@ class Element:
         else:
             self.is_pickable = True
         self.surf = pygame.Surface((TILESIZE, TILESIZE))
-        self.rect = self.surf.get_rect(topleft=(TILESIZE * x, TILESIZE * y))
+        self.rect = self.surf.get_rect(topleft=(TILESIZE * pos_x, TILESIZE * pos_y))
 
     def draw(self, surface):
         if not self.is_picked:
