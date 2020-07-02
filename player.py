@@ -6,6 +6,8 @@ import os
 import pygame
 from pygame.locals import K_UP, K_DOWN, K_LEFT, K_RIGHT
 
+from constants import TILESIZE
+
 
 class Player(pygame.sprite.Sprite):
     """ Player class docstring"""
@@ -15,8 +17,8 @@ class Player(pygame.sprite.Sprite):
         self.bag = []
         absolute_path = os.path.join(os.path.dirname(__file__), "assets", "MacGyver.png")
         self.image = pygame.image.load(absolute_path)
-        self.surf = pygame.Surface((50, 50))
-        self.rect = self.surf.get_rect(topleft=(50 * self.x, 50 * self.y))
+        self.surf = pygame.Surface((TILESIZE, TILESIZE))
+        self.rect = self.surf.get_rect(topleft=(TILESIZE * self.x, TILESIZE * self.y))
 
     def draw(self, surface):
         """Draws the player on the grid"""
@@ -25,8 +27,8 @@ class Player(pygame.sprite.Sprite):
     def draw_bag(self, surface):
         try:
             for index, value in enumerate(self.bag):
-                surf = pygame.Surface((50, 50))
-                rect = surf.get_rect(topleft=(150 + 50 * index, 750))
+                surf = pygame.Surface((TILESIZE, TILESIZE))
+                rect = surf.get_rect(topleft=(3 * TILESIZE + TILESIZE * index, 750))
                 img_filename = value.content + ".png"
                 absolute_path = os.path.join(os.path.dirname(__file__), "assets", img_filename)
                 image = pygame.image.load(absolute_path)
@@ -41,16 +43,16 @@ class Player(pygame.sprite.Sprite):
         (wall or map boundary)"""
         pressed_keys = pygame.key.get_pressed()
         if self.rect.top > 0 and pressed_keys[K_UP]and level.can_move(self.x, self.y - 1):
-            self.rect.move_ip(0, -50)
+            self.rect.move_ip(0, -TILESIZE)
             self.y -= 1
         if self.rect.bottom < screen_height and pressed_keys[K_DOWN] and level.can_move(self.x, self.y + 1):
-            self.rect.move_ip(0, 50)
+            self.rect.move_ip(0, TILESIZE)
             self.y += 1
         if self.rect.left > 0 and pressed_keys[K_LEFT] and level.can_move(self.x - 1, self.y):
-            self.rect.move_ip(-50, 0)
+            self.rect.move_ip(-TILESIZE, 0)
             self.x -= 1
         if self.rect.right < screen_width and pressed_keys[K_RIGHT] and level.can_move(self.x + 1, self.y):
-            self.rect.move_ip(50, 0)
+            self.rect.move_ip(TILESIZE, 0)
             self.x += 1
         self.pick_item(level)
 
@@ -65,7 +67,6 @@ class Player(pygame.sprite.Sprite):
             if level.get_tile_element(self.x, self.y) and level.get_tile_element(self.x, self.y) not in self.bag:
                 self.bag.append(level.get_tile_element(self.x, self.y))
                 level.get_tile_element(self.x, self.y).is_picked = True
-                print("Picked", level.get_tile_element(self.x, self.y).content)
         except AttributeError:
             pass
 

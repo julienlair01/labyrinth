@@ -5,6 +5,7 @@ import os
 import pygame
 
 import element
+from constants import TILESIZE
 
 
 class Tile():
@@ -18,8 +19,8 @@ class Tile():
         self.image = pygame.image.load(absolute_path)
         if self.tile_type == "exit":
             self.add_element("guard")
-        self.surf = pygame.Surface((50, 50))
-        self.rect = self.surf.get_rect(topleft=(50 * self.x, 50 * self.y))
+        self.surf = pygame.Surface((TILESIZE, TILESIZE))
+        self.rect = self.surf.get_rect(topleft=(TILESIZE * self.x, TILESIZE * self.y))
 
     def add_element(self, element_type):
         """Adds an element on the tile (guard or item)"""

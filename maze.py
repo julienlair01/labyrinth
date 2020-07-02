@@ -9,9 +9,7 @@ from pygame.locals import QUIT
 
 import level
 import player
-
-FPS = 30
-TILESIZE = 50
+from constants import FPS, TILESIZE
 
 pygame.init()
 pygame.font.init()
@@ -26,13 +24,13 @@ pygame.display.set_caption("Escape MacGyver")
 end_of_game = False
 
 while not end_of_game:
-    DISPLAYSURF = pygame.display.set_mode((50 * level.width, 50 * level.height + 50))
+    DISPLAYSURF = pygame.display.set_mode((TILESIZE * level.width, TILESIZE * level.height + TILESIZE))
     level.draw(DISPLAYSURF)
     for event in pygame.event.get():
         if event.type == QUIT:
             pygame.quit()
             sys.exit()
-    player.update(level, 50 * level.width, 50 * level.height)
+    player.update(level, TILESIZE * level.width, TILESIZE * level.height)
     player.draw(DISPLAYSURF)
     player.draw_bag(DISPLAYSURF)
     DISPLAYSURF.blit(text, (45,765))
