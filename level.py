@@ -3,6 +3,7 @@
     relative to the level: generating the grid, putting items on
     tiles, finding a tile with specific coordinates. """
 import random
+import os
 
 import configparser
 
@@ -18,13 +19,14 @@ class Level:
         """ This is the Level clas constructor. It creates an empty
             list of tiles, which will be used to reprensent the grid. """
         self.tiles_list = []
-        self.generate_level("level_config.ini")
+        self.generate_level()
 
-    def generate_level(self, level_config_name="level_config.ini"):
+    def generate_level(self):
         """ Creates map individual tiles in the tiles_list table,
         based on the layout in the config file. """
         config = configparser.ConfigParser()
-        config.read(level_config_name)
+        absolute_path = os.path.join(os.path.dirname(__file__), "level_config.ini")
+        config.read(absolute_path)
         map_layout = config.get("level", "layout").split("\n")
         self.width = len(map_layout[0])
         self.height = len(map_layout)
