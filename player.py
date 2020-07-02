@@ -11,7 +11,6 @@ class Player(pygame.sprite.Sprite):
         super().__init__()
         self.x, self.y = level.get_start_tile()
         self.bag = []
-        self.dict_bag = {}
         self.image = pygame.image.load("assets/macgyver.png")
         self.surf = pygame.Surface((50, 50))
         self.rect = self.surf.get_rect(topleft=(50 * self.x, 50 * self.y))
@@ -21,10 +20,8 @@ class Player(pygame.sprite.Sprite):
         surface.blit(self.image, self.rect)
 
     def update(self, level, screen_width, screen_height):
-        """Updates the player position on the grid,
-        according to the move the player applies.
-        Move is not allowed if the target tile
-        is blocked by something (e.g. a wall)"""
+        """Updates the player position on the grid, according to the move the player applies.
+        Move is not allowed if the target tile is blocked by something (a wall or the map boundaries)"""
         pressed_keys = pygame.key.get_pressed()
         if self.rect.top > 0 and pressed_keys[pygame.K_UP] and level.can_move(self.x, self.y - 1):
             self.rect.move_ip(0, -50)
@@ -38,19 +35,22 @@ class Player(pygame.sprite.Sprite):
         if self.rect.right < screen_width and pressed_keys[pygame.K_RIGHT] and level.can_move(self.x + 1, self.y):
             self.rect.move_ip(50, 0)
             self.x += 1
-        self.has_found_element(level)
+        self.pick_item(level)
 
     def has_found_exit(self, level):
         """Returns True if the player reached the exit tile"""
         return level.is_exit_tile(self.x, self.y)
 
-    def has_found_element(self, level):
-        if level.tile_has_element(self.x, self.y) and level.tile_has_element(self.x, self.y) not in self.bag:
+    def pick_item(self, level):
+        """Checks if there is an item on the tile and picks it if so"""
+        try: 
+            if level.tile_has_element(self.x, self.y) not in self.bag:
                 element = level.tile_has_element(self.x, self.y)
                 self.bag.append(element)
-                self.dict_bag[element.content] = 1
                 print("Picked", element.content)
+        except AttributeError:
+            pass
     
     def has_picked_all_items(self):
-        """Returns True if the player reached the exit tile"""
+        """Checks if Player has picked all 3 items"""
         return len(self.bag) == 3
