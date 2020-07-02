@@ -26,20 +26,19 @@ class Player(pygame.sprite.Sprite):
         try:
             for index, value in enumerate(self.bag):
                 surf = pygame.Surface((50, 50))
-                rect = surf.get_rect(topleft=(200 + 50 * index, 750))
-                img_path = value.content + ".png"
-                absolute_path = os.path.join(os.path.dirname(__file__), "assets", img_path)
+                rect = surf.get_rect(topleft=(150 + 50 * index, 750))
+                img_filename = value.content + ".png"
+                absolute_path = os.path.join(os.path.dirname(__file__), "assets", img_filename)
                 image = pygame.image.load(absolute_path)
                 surface.blit(image, rect)
         except AttributeError:
             pass
 
-
     def update(self, level, screen_width, screen_height):
-        """Updates the player position on the grid,
-        according to the move the player applies.
+        """Updates MacGyver's position on the grid,
+        according to the direction given by the player.
         Move is not allowed if the target tile is blocked by something
-        (a wall or the map boundaries)"""
+        (wall or map boundary)"""
         pressed_keys = pygame.key.get_pressed()
         if self.rect.top > 0 and pressed_keys[K_UP]and level.can_move(self.x, self.y - 1):
             self.rect.move_ip(0, -50)
@@ -60,13 +59,13 @@ class Player(pygame.sprite.Sprite):
         return level.is_exit_tile(self.x, self.y)
 
     def pick_item(self, level):
-        """Checks if
-        there is an item on the tile and picks it if so"""
+        """ If there is an item on the tile,
+            picks it and put in MacGyver's bag """
         try:
             if level.get_tile_element(self.x, self.y) and level.get_tile_element(self.x, self.y) not in self.bag:
-                element = level.get_tile_element(self.x, self.y)
-                self.bag.append(element)
-                print("Picked", element.content)
+                self.bag.append(level.get_tile_element(self.x, self.y))
+                level.get_tile_element(self.x, self.y).is_picked = True
+                print("Picked", level.get_tile_element(self.x, self.y).content)
         except AttributeError:
             pass
 

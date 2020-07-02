@@ -10,6 +10,7 @@ class Element:
         self.content = content
         absolute_path = os.path.join(os.path.dirname(__file__), image)
         self.image = pygame.image.load(absolute_path)
+        self.is_picked = False
         if self.content == "guard":
             self.is_pickable = False
         else:
@@ -18,4 +19,5 @@ class Element:
         self.rect = self.surf.get_rect(topleft=(50 * x, 50 * y))
 
     def draw(self, surface):
-        surface.blit(self.image, self.rect)
+        if not self.is_picked:
+            surface.blit(self.image, self.rect)
