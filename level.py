@@ -56,7 +56,7 @@ class Level:
 
     def drop_items_on_grid(self):
         """Position the 3 items Macgyver must pick to escape"""
-        items_list = ["tube", "needle", "ether"]
+        items_list = ["plastic_tube", "needle", "ether"]
         free_tiles_list = []
         for y in range(self.height):
             for x in range(self.width):

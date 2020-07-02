@@ -15,6 +15,10 @@ TILESIZE = 50
 
 pygame.init()
 pygame.font.init()
+font = pygame.font.Font(None, 28)
+text = font.render("Your bag contains: ", True, (0, 128, 0))
+
+
 FramePerSec = pygame.time.Clock()
 level = level.Level()
 player = player.Player(level)
@@ -30,6 +34,8 @@ while not end_of_game:
             sys.exit()
     player.update(level, 50 * level.width, 50 * level.height)
     player.draw(DISPLAYSURF)
+    player.draw_bag(DISPLAYSURF)
+    DISPLAYSURF.blit(text, (15,765))
     if player.has_found_exit(level):
         end_of_game = True
         if player.has_picked_all_items():

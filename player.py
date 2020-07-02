@@ -21,6 +21,19 @@ class Player(pygame.sprite.Sprite):
     def draw(self, surface):
         """Draws the player on the grid"""
         surface.blit(self.image, self.rect)
+    
+    def draw_bag(self, surface):
+        try:
+            for index, value in enumerate(self.bag):
+                surf = pygame.Surface((50, 50))
+                rect = surf.get_rect(topleft=(200 + 50 * index, 750))
+                img_path = value.content + ".png"
+                absolute_path = os.path.join(os.path.dirname(__file__), "assets", img_path)
+                image = pygame.image.load(absolute_path)
+                surface.blit(image, rect)
+        except AttributeError:
+            pass
+
 
     def update(self, level, screen_width, screen_height):
         """Updates the player position on the grid,
@@ -50,7 +63,7 @@ class Player(pygame.sprite.Sprite):
         """Checks if
         there is an item on the tile and picks it if so"""
         try:
-            if level.get_tile_element(self.x, self.y) not in self.bag:
+            if level.get_tile_element(self.x, self.y) and level.get_tile_element(self.x, self.y) not in self.bag:
                 element = level.get_tile_element(self.x, self.y)
                 self.bag.append(element)
                 print("Picked", element.content)
