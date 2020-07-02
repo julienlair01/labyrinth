@@ -1,7 +1,8 @@
-# Maze
+# Maze by Julien Lair
 ## General info
 This is a little game written in Python, where you need to help Macgyver escape a maze.
 The player will first need to pick 3 items to make the guard asleep, and safely escape.
+https://github.com/julienlair01/maze
 
 ## Instructiions
 1. Create virtual env
