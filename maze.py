@@ -1,37 +1,37 @@
 # coding: utf-8
 
-import level, tile, pprint, pygame, sys, player, element
+import sys
+import pygame
 from pygame.locals import *
+import level
+import tile
+import player
+import element
 
-# Initialize program
-pygame.init()
-# Assign FPS a value
 FPS = 30
-FramePerSec = pygame.time.Clock()
 TILESIZE = 50
 
+pygame.init()
+FramePerSec = pygame.time.Clock()
 level = level.Level()
 player = player.Player(level)
-exitX, exitY = level.getExitTile()
+pygame.display.set_caption("Escape MacGyver")
+end_of_game = False
 
-pygame.display.set_caption("Escape MacGyver") 
-foundExit = False
-
-while not foundExit:
-    
-    DISPLAYSURF = pygame.display.set_mode((50 * level.width, 50 * level.height))
+while not end_of_game:
+    DISPLAYSURF = pygame.display.set_mode((50 * level.width, 50 * level.height + 50))
     level.draw(DISPLAYSURF)
-    
     for event in pygame.event.get():
-        if event.type == QUIT:
+        if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-      
-    player.update(50 * level.height, 50 * level.width, level)
+    player.update(level, 50 * level.width, 50 * level.height)
     player.draw(DISPLAYSURF)
-    foundExit = player.hasFoundExit(level)
-
-    if foundExit:
-        print("Congrats, you escaped!")
+    if player.has_found_exit(level):
+        end_of_game = True
+        if player.has_picked_all_items():
+            print("Congrats, you escaped!")
+        else:
+            print("Ooops... you lost!")
 
     FramePerSec.tick(FPS)
