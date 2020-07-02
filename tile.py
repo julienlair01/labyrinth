@@ -11,9 +11,9 @@ from constants import TILESIZE
 class Tile():
 
     def __init__(self, tile_type, image, pos_x, pos_y, is_blocking):
-        self.tile_type = tile_type
         self.pos_x = pos_x
         self.pos_y = pos_y
+        self.tile_type = tile_type
         self.is_blocking = is_blocking
         self.element = []
         absolute_path = os.path.join(os.path.dirname(__file__), image)

@@ -30,12 +30,12 @@ class Level:
         map_layout = config.get("level", "layout").split("\n")
         self.width = len(map_layout[0])
         self.height = len(map_layout)
-        for y in range(self.height):
-            for x in range(self.width):
-                is_blocking = config.getboolean(map_layout[y][x], "is_blocking")
-                tile_type = config.get(map_layout[y][x], "name")
-                image = config.get(map_layout[y][x], "image")
-                self.tiles_list.append(tile.Tile(tile_type, image, x, y, is_blocking))
+        for pos_y in range(self.height):
+            for pos_x in range(self.width):
+                is_blocking = config.getboolean(map_layout[pos_y][pos_x], "is_blocking")
+                tile_type = config.get(map_layout[pos_y][pos_x], "name")
+                image = config.get(map_layout[pos_y][pos_x], "image")
+                self.tiles_list.append(tile.Tile(tile_type, image, pos_x, pos_y, is_blocking))
         self.tiles_list = [self.tiles_list[x:x+self.width] for x in \
             range(0, len(self.tiles_list), self.width)]
         self.drop_items_on_grid()

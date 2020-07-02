@@ -32,7 +32,7 @@ while not end_of_game:
             sys.exit()
     player.update(level, TILESIZE * level.width, TILESIZE * level.height)
     player.draw(DISPLAYSURF)
-    DISPLAYSURF.blit(text, (45,765))
+    DISPLAYSURF.blit(text, (45, 765))
     if player.has_found_exit(level):
         end_of_game = True
         if player.has_picked_all_items():
