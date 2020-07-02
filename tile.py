@@ -1,5 +1,6 @@
 # coding: utf-8
 
+import os
 import pygame
 from pygame.locals import *
 import element
@@ -12,10 +13,8 @@ class Tile():
         self.x = x
         self.y = y
         self.is_blocking = is_blocking
-        if self.tile_type == "wall":
-            self.image = pygame.image.load("assets/wall.png")
-        else:
-            self.image = pygame.image.load("assets/floor.png")
+        absolute_path = os.path.join(os.path.dirname(__file__), image)
+        self.image = pygame.image.load(absolute_path)
         if self.tile_type == "exit":
             self.add_element("guard")
         self.surf = pygame.Surface((50, 50))

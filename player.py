@@ -1,5 +1,6 @@
 # coding: utf-8
 
+import os
 import pygame
 from pygame.locals import *
 import level
@@ -11,7 +12,8 @@ class Player(pygame.sprite.Sprite):
         super().__init__()
         self.x, self.y = level.get_start_tile()
         self.bag = []
-        self.image = pygame.image.load("assets/macgyver.png")
+        absolute_path = os.path.join(os.path.dirname(__file__), "assets", "MacGyver.png")
+        self.image = pygame.image.load(absolute_path)
         self.surf = pygame.Surface((50, 50))
         self.rect = self.surf.get_rect(topleft=(50 * self.x, 50 * self.y))
 
@@ -45,7 +47,7 @@ class Player(pygame.sprite.Sprite):
         """Checks if there is an item on the tile and picks it if so"""
         try: 
             if level.tile_has_element(self.x, self.y) not in self.bag:
-                element = level.tile_has_element(self.x, self.y)
+                element = level.get_tile_element(self.x, self.y)
                 self.bag.append(element)
                 print("Picked", element.content)
         except AttributeError:

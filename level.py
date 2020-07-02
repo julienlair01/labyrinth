@@ -21,9 +21,9 @@ class Level:
         self.height = self.get_height(map)
         for y in range(self.height):
             for x in range(self.width):
-                is_blocking = config.getboolean(map[y][x], "block")
+                is_blocking = config.getboolean(map[y][x], "is_blocking")
                 tile_type = config.get(map[y][x], "name")
-                image = config.get(map[y][x], "bg_image")
+                image = config.get(map[y][x], "image")
                 self.tiles_list.append(tile.Tile(tile_type, image, x, y, is_blocking))
         self.tiles_list = [self.tiles_list[x:x+self.width]for x in range(0, len(self.tiles_list), self.width)]
         self.drop_items_on_grid()
@@ -72,7 +72,7 @@ class Level:
     def is_exit_tile(self, x, y):
         return (x, y) == self.get_exit_tile()
 
-    def tile_has_element(self, x, y):
+    def get_tile_element(self, x, y):
         try:
             if self.tiles_list[y][x].element.is_pickable:
                 return self.tiles_list[y][x].element
