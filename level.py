@@ -85,8 +85,10 @@ class Level:
         try:
             if self.tiles_list[y][x].element.is_pickable:
                 return self.tiles_list[y][x].element
+            else:
+                return None
         except AttributeError:
-            pass
+            return None
 
     def draw(self, displaysurf):
         """Draws the map by drawing each tile of the grid,
