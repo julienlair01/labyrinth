@@ -72,7 +72,7 @@ class Level:
     def is_exit_tile(self, x, y):
         return (x, y) == self.get_exit_tile()
 
-    def get_tile_element(self, x, y):
+    def get_tilepip _element(self, x, y):
         try:
             if self.tiles_list[y][x].element.is_pickable:
                 return self.tiles_list[y][x].element
