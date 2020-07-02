@@ -23,9 +23,7 @@ class Player(pygame.sprite.Sprite):
     def draw(self, surface):
         """Draws the player on the grid"""
         surface.blit(self.image, self.rect)
-    
-    def draw_bag(self, surface):
-        try:
+        if self.bag:
             for index, value in enumerate(self.bag):
                 surf = pygame.Surface((TILESIZE, TILESIZE))
                 rect = surf.get_rect(topleft=(3 * TILESIZE + TILESIZE * index, 750))
@@ -33,8 +31,18 @@ class Player(pygame.sprite.Sprite):
                 absolute_path = os.path.join(os.path.dirname(__file__), "assets", img_filename)
                 image = pygame.image.load(absolute_path)
                 surface.blit(image, rect)
-        except AttributeError:
-            pass
+    
+    # def draw_bag(self, surface):
+    #     try:
+    #         for index, value in enumerate(self.bag):
+    #             surf = pygame.Surface((TILESIZE, TILESIZE))
+    #             rect = surf.get_rect(topleft=(3 * TILESIZE + TILESIZE * index, 750))
+    #             img_filename = value.content + ".png"
+    #             absolute_path = os.path.join(os.path.dirname(__file__), "assets", img_filename)
+    #             image = pygame.image.load(absolute_path)
+    #             surface.blit(image, rect)
+    #     except AttributeError:
+    #         pass
 
     def update(self, level, screen_width, screen_height):
         """Updates MacGyver's position on the grid,
@@ -63,12 +71,9 @@ class Player(pygame.sprite.Sprite):
     def pick_item(self, level):
         """ If there is an item on the tile,
             picks it and put in MacGyver's bag """
-        try:
-            if level.get_tile_element(self.x, self.y) and level.get_tile_element(self.x, self.y) not in self.bag:
-                self.bag.append(level.get_tile_element(self.x, self.y))
-                level.get_tile_element(self.x, self.y).is_picked = True
-        except AttributeError:
-            pass
+        element = level.pick_element(self.x, self.y)
+        if element:
+            self.bag.append(element)
 
     def has_picked_all_items(self):
         """Checks if Player has picked all 3 items"""

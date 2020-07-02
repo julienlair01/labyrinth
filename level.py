@@ -81,15 +81,13 @@ class Level:
             know whether the player reached the exit of the maze or not. """
         return (x, y) == self.get_exit_tile()
 
-    def get_tile_element(self, x, y):
-        """ Returns the element present on the tile where the player stands.
-            This will be used to know if there is an item to be picked. """
-        try:
-            if self.tiles_list[y][x].element.is_pickable:
-                return self.tiles_list[y][x].element
-            else:
-                return None
-        except AttributeError:
+    def pick_element(self, x, y):
+        """ Returns the element present on the tile where the player stands. """
+        if self.tiles_list[y][x].element and self.tiles_list[y][x].element.is_pickable:
+            element = self.tiles_list[y][x].element
+            self.tiles_list[y][x].element = None
+            return element
+        else:
             return None
 
     def draw(self, displaysurf):

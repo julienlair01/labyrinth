@@ -32,7 +32,6 @@ while not end_of_game:
             sys.exit()
     player.update(level, TILESIZE * level.width, TILESIZE * level.height)
     player.draw(DISPLAYSURF)
-    player.draw_bag(DISPLAYSURF)
     DISPLAYSURF.blit(text, (45,765))
     if player.has_found_exit(level):
         end_of_game = True

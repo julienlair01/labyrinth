@@ -15,6 +15,7 @@ class Tile():
         self.x = x
         self.y = y
         self.is_blocking = is_blocking
+        self.element = []
         absolute_path = os.path.join(os.path.dirname(__file__), image)
         self.image = pygame.image.load(absolute_path)
         if self.tile_type == "exit":
