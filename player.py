@@ -47,9 +47,10 @@ class Player(pygame.sprite.Sprite):
         return level.is_exit_tile(self.x, self.y)
 
     def pick_item(self, level):
-        """Checks if there is an item on the tile and picks it if so"""
+        """Checks if
+        there is an item on the tile and picks it if so"""
         try:
-            if level.tile_has_element(self.x, self.y) not in self.bag:
+            if level.get_tile_element(self.x, self.y) not in self.bag:
                 element = level.get_tile_element(self.x, self.y)
                 self.bag.append(element)
                 print("Picked", element.content)
