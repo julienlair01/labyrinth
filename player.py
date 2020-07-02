@@ -38,7 +38,7 @@ class Player(pygame.sprite.Sprite):
         Move is not allowed if the target tile is blocked by something
         (wall or map boundary)"""
         pressed_keys = pygame.key.get_pressed()
-        if self.rect.top > 0 and pressed_keys[K_UP]and level.can_move(self.pos_x, self.pos_y - 1):
+        if self.rect.top > 0 and pressed_keys[K_UP] and level.can_move(self.pos_x, self.pos_y - 1):
             self.rect.move_ip(0, -TILESIZE)
             self.pos_y -= 1
         if self.rect.bottom < screen_height and pressed_keys[K_DOWN] and level.can_move(self.pos_x, self.pos_y + 1):

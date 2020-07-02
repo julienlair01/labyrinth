@@ -6,6 +6,7 @@ import pygame
 
 from constants import TILESIZE
 
+
 class Element:
 
     def __init__(self, pos_x, pos_y, content, image):
