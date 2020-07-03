@@ -9,35 +9,30 @@ from pygame.locals import QUIT
 
 import level
 import player
+import ui
+from ui import *
 from constants import FPS, TILESIZE
 
-pygame.init()
-pygame.font.init()
-font = pygame.font.Font(None, 28)
-text = font.render("Your bag: ", True, (0, 128, 0))
-
-
-FramePerSec = pygame.time.Clock()
+ui = ui.UI()
 level = level.Level()
 player = player.Player(level)
-pygame.display.set_caption("Escape MacGyver")
 end_of_game = False
 
 while not end_of_game:
-    DISPLAYSURF = pygame.display.set_mode((TILESIZE * level.width, TILESIZE * level.height + TILESIZE))
-    level.draw(DISPLAYSURF)
+
+    ui.draw_level(level)
     for event in pygame.event.get():
         if event.type == QUIT:
             pygame.quit()
             sys.exit()
-    player.update(level, TILESIZE * level.width, TILESIZE * level.height)
-    player.draw(DISPLAYSURF)
-    DISPLAYSURF.blit(text, (45, 765))
+    ui.update_player(player, level)
+    ui.draw_player(player)
+    player.pick_item(level)
+    ui.draw_text()
     if player.has_found_exit(level):
         end_of_game = True
         if player.has_picked_all_items():
             print("Congratulationss, you escaped!")
         else:
             print("Ooops... you lost!")
-
-    FramePerSec.tick(FPS)
+    ui.frame_per_sec.tick(FPS)
