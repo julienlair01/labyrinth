@@ -17,18 +17,21 @@ ui = ui.UI()
 level = level.Level()
 player = player.Player(level)
 end_of_game = False
+# game_mode = input("Tapez text ou ui :")
+game_mode = "ui"
 
 while not end_of_game:
-
-    ui.draw_level(level)
+    if game_mode == "ui":
+        ui.draw_ui(level, player)
+        ui.update_player(level, player)
+    elif game_mode == "text":
+        # text.update.player(level, player)
+        pass
+    player.pick_item(level)
     for event in pygame.event.get():
         if event.type == QUIT:
             pygame.quit()
             sys.exit()
-    ui.update_player(player, level)
-    ui.draw_player(player)
-    player.pick_item(level)
-    ui.draw_text()
     if player.has_found_exit(level):
         end_of_game = True
         if player.has_picked_all_items():

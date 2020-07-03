@@ -1,5 +1,7 @@
 # coding: utf-8
 
+import os
+
 import pygame
 from pygame.locals import *
 
@@ -22,17 +24,30 @@ class UI():
         self.text = self.font.render("Your bag: ", True, (0, 128, 0))
         self.frame_per_sec = pygame.time.Clock()
 
+    def draw_ui(self, level, player):
+        self.draw_level(level)
+        self.draw_player(player)
+        self.draw_text()
+
     def draw_level(self, level):
         self.displaysurf = pygame.display.set_mode((TILESIZE * level.width, TILESIZE * level.height + TILESIZE))
         level.draw(self.displaysurf)
 
     def draw_player(self, player):
-        player.draw(self.displaysurf)
-    
+        self.displaysurf.blit(player.image, player.rect)
+        if player.bag:
+            for index, value in enumerate(player.bag):
+                surf = pygame.Surface((TILESIZE, TILESIZE))
+                rect = surf.get_rect(topleft=(3 * TILESIZE + TILESIZE * index, 750))
+                img_filename = value.content + ".png"
+                absolute_path = os.path.join(os.path.dirname(__file__), "assets", img_filename)
+                image = pygame.image.load(absolute_path)
+                self.displaysurf.blit(image, rect)
+
     def draw_text(self):
         self.displaysurf.blit(self.text, (45, 765))
 
-    def update_player(self, player, level):
+    def update_player(self, level, player):
         pressed_keys = pygame.key.get_pressed()
         if player.rect.top > 0 and pressed_keys[K_UP] and level.can_move(player.pos_x, player.pos_y - 1):
             player.rect.move_ip(0, -TILESIZE)
