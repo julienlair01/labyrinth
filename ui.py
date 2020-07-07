@@ -8,8 +8,8 @@ from pygame.locals import K_UP, K_DOWN, K_LEFT, K_RIGHT, QUIT
 
 from constants import TILESIZE
 
-class UI():
 
+class UI():
 
     def __init__(self, level):
         """ Constructor of the calass UI. It initializes pygame. """
