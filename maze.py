@@ -1,37 +1,31 @@
 # coding: utf-8
 """ This is the main file of the Escape MacGyver game.
-    It initializes main game objects,
-    and contains the main game loop """
-import sys
-
-import pygame
-from pygame.locals import QUIT
+    It initializes main game objects, calls the right method
+    according to game mode (UI or text) and contains the main game loop. """
 
 import level
 import player
 import ui
-from ui import *
 from constants import FPS, TILESIZE
 
 level = level.Level()
 player = player.Player(level)
 ui = ui.UI()
 end_of_game = False
-# game_mode = input("Tapez text ou ui :")
+# game_mode = input("Do you want to play the text or the nice UI version (type ui or text)\n")
 game_mode = "ui"
 
 while not end_of_game:
     if game_mode == "ui":
         ui.draw_ui(level, player)
         ui.update_player(level, player)
+        ui.pygame_event_get()
     elif game_mode == "text":
         # text.update.player(level, player)
+        print("Not supported yet... coming soon...")
+        end_of_game = True
         pass
     player.pick_item(level)
-    for event in pygame.event.get():
-        if event.type == QUIT:
-            pygame.quit()
-            sys.exit()
     if player.has_found_exit(level):
         end_of_game = True
         if player.has_picked_all_items():

@@ -1,6 +1,7 @@
 # coding: utf-8
 
 import os
+import sys
 
 import pygame
 from pygame.locals import *
@@ -75,13 +76,24 @@ class UI():
         pressed_keys = pygame.key.get_pressed()
         if player.rect.top > 0 and pressed_keys[K_UP] and level.can_move(player.pos_x, player.pos_y - 1):
             player.rect.move_ip(0, -TILESIZE)
+            print("key up")
             player.move("up")
         if player.rect.bottom < level.height * TILESIZE and pressed_keys[K_DOWN] and level.can_move(player.pos_x, player.pos_y + 1):
             player.rect.move_ip(0, TILESIZE)
+            print("key down")
             player.move("down")
         if player.rect.left > 0 and pressed_keys[K_LEFT] and level.can_move(player.pos_x - 1, player.pos_y):
             player.rect.move_ip(-TILESIZE, 0)
+            print("key left")
             player.move("left")
         if player.rect.right < level.width * TILESIZE and pressed_keys[K_RIGHT] and level.can_move(player.pos_x + 1, player.pos_y):
             player.rect.move_ip(TILESIZE, 0)
+            print("key right")
             player.move("right")
+
+
+    def pygame_event_get(self):
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                pygame.quit()
+                sys.exit()
