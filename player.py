@@ -41,6 +41,7 @@ class Player(pygame.sprite.Sprite):
         element = level.pick_element(self.pos_x, self.pos_y)
         if element:
             self.bag.append(element)
+            print("You picked an item:", element.content)
 
     def has_picked_all_items(self):
         """Checks if Player has picked all 3 items"""

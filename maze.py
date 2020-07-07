@@ -21,7 +21,7 @@ while not end_of_game:
         ui.pygame_event_get()
         ui.update_player(level, player)
         player.pick_item(level)
-        ui.frame_per_sec.tick(FPS)  # not satisfied of having it here
+        ui.frame_per_sec.tick(FPS)
     elif game_mode == "text":
         # text.update.player(level, player)
         # player.pick_item(level)

@@ -12,13 +12,12 @@ from constants import TILESIZE
 class UI():
 
     def __init__(self, level):
-        """ Constructor of the calass UI. It initializes pygame. """
+        """ Constructor of the class UI. It initializes pygame. """
         pygame.init()
         pygame.font.init()
         pygame.display.set_caption("Escape MacGyver")
         self.font = pygame.font.Font(None, 28)
         self.text = self.font.render("Your bag: ", True, (0, 128, 0))
-        self.displaysurf = pygame.display.set_mode((TILESIZE * level.width, TILESIZE * level.height + TILESIZE))
         self.frame_per_sec = pygame.time.Clock()
 
     def draw_ui(self, level, player):
@@ -31,6 +30,7 @@ class UI():
     def draw_level(self, level):
         """ Draws the map by drawing each tile of the grid,
         and the element located on the tile """
+        self.displaysurf = pygame.display.set_mode((TILESIZE * level.width, TILESIZE * level.height + TILESIZE))
         for pos_y in range(0, level.height):
             for pos_x in range(0, level.width):
                 level.tiles_list[pos_y][pos_x].draw(self.displaysurf)
@@ -73,19 +73,15 @@ class UI():
         pressed_keys = pygame.key.get_pressed()
         if player.rect.top > 0 and pressed_keys[K_UP] and level.can_move(player.pos_x, player.pos_y - 1):
             player.rect.move_ip(0, -TILESIZE)
-            print("key up")
             player.move("up")
         if player.rect.bottom < level.height * TILESIZE and pressed_keys[K_DOWN] and level.can_move(player.pos_x, player.pos_y + 1):
             player.rect.move_ip(0, TILESIZE)
-            print("key down")
             player.move("down")
         if player.rect.left > 0 and pressed_keys[K_LEFT] and level.can_move(player.pos_x - 1, player.pos_y):
             player.rect.move_ip(-TILESIZE, 0)
-            print("key left")
             player.move("left")
         if player.rect.right < level.width * TILESIZE and pressed_keys[K_RIGHT] and level.can_move(player.pos_x + 1, player.pos_y):
             player.rect.move_ip(TILESIZE, 0)
-            print("key right")
             player.move("right")
 
     def pygame_event_get(self):
