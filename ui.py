@@ -4,23 +4,21 @@ import os
 import sys
 
 import pygame
-from pygame.locals import *
+from pygame.locals import K_UP, K_DOWN, K_LEFT, K_RIGHT, QUIT
 
-from constants import FPS, TILESIZE
-
-import level
-
+from constants import TILESIZE
 
 class UI():
 
 
-    def __init__(self):
+    def __init__(self, level):
         """ Constructor of the calass UI. It initializes pygame. """
         pygame.init()
         pygame.font.init()
         pygame.display.set_caption("Escape MacGyver")
         self.font = pygame.font.Font(None, 28)
         self.text = self.font.render("Your bag: ", True, (0, 128, 0))
+        self.displaysurf = pygame.display.set_mode((TILESIZE * level.width, TILESIZE * level.height + TILESIZE))
         self.frame_per_sec = pygame.time.Clock()
 
     def draw_ui(self, level, player):
@@ -33,7 +31,6 @@ class UI():
     def draw_level(self, level):
         """ Draws the map by drawing each tile of the grid,
         and the element located on the tile """
-        self.displaysurf = pygame.display.set_mode((TILESIZE * level.width, TILESIZE * level.height + TILESIZE))
         for pos_y in range(0, level.height):
             for pos_x in range(0, level.width):
                 level.tiles_list[pos_y][pos_x].draw(self.displaysurf)
@@ -90,7 +87,6 @@ class UI():
             player.rect.move_ip(TILESIZE, 0)
             print("key right")
             player.move("right")
-
 
     def pygame_event_get(self):
         for event in pygame.event.get():

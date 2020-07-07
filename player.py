@@ -4,7 +4,6 @@
 import os
 
 import pygame
-from pygame.locals import K_UP, K_DOWN, K_LEFT, K_RIGHT
 
 from constants import TILESIZE
 
@@ -30,8 +29,6 @@ class Player(pygame.sprite.Sprite):
             self.pos_x -= 1
         elif direction == "right":
             self.pos_x += 1
-        else:
-            raise
         print("Moving", direction)
 
     def has_found_exit(self, level):

@@ -6,11 +6,11 @@
 import level
 import player
 import ui
-from constants import FPS, TILESIZE
+from constants import FPS
 
 level = level.Level()
 player = player.Player(level)
-ui = ui.UI()
+ui = ui.UI(level)
 end_of_game = False
 # game_mode = input("Do you want to play the text or the nice UI version (type text or ui to continue)\n")
 game_mode = "ui"
@@ -32,4 +32,4 @@ while not end_of_game:
         if player.has_picked_all_items():
             print("Congratulationss, you escaped!")
         else:
-            print("Ooops... You did not pick all required items... You lost! HAHAHAHA!!!" )
+            print("Ooops... You did not pick all required items... You lost! HAHAHAHA!!!")
