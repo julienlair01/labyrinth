@@ -18,8 +18,8 @@ game_mode = "ui"
 while not end_of_game:
     if game_mode == "ui":
         ui.draw_ui(level, player)
-        ui.update_player(level, player)
         ui.pygame_event_get()
+        ui.update_player(level, player)
     elif game_mode == "text":
         # text.update.player(level, player)
         print("Not supported yet... coming soon...")
