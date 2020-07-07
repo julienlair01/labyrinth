@@ -13,9 +13,9 @@ import ui
 from ui import *
 from constants import FPS, TILESIZE
 
-ui = ui.UI()
 level = level.Level()
 player = player.Player(level)
+ui = ui.UI()
 end_of_game = False
 # game_mode = input("Tapez text ou ui :")
 game_mode = "ui"
@@ -37,5 +37,5 @@ while not end_of_game:
         if player.has_picked_all_items():
             print("Congratulationss, you escaped!")
         else:
-            print("Ooops... you lost!")
+            print("Ooops... You did not pick all required items... You lost! HAHAHAHA!!!" )
     ui.frame_per_sec.tick(FPS)

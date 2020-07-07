@@ -20,7 +20,3 @@ class Element:
             self.is_pickable = True
         self.surf = pygame.Surface((TILESIZE, TILESIZE))
         self.rect = self.surf.get_rect(topleft=(TILESIZE * pos_x, TILESIZE * pos_y))
-
-    def draw(self, surface):
-        if not self.is_picked:
-            surface.blit(self.image, self.rect)

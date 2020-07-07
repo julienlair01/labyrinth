@@ -30,8 +30,21 @@ class UI():
         self.draw_text()
 
     def draw_level(self, level):
+        """Draws the map by drawing each tile of the grid,
+        and the element located on the tile"""
         self.displaysurf = pygame.display.set_mode((TILESIZE * level.width, TILESIZE * level.height + TILESIZE))
-        level.draw(self.displaysurf)
+        for pos_y in range(0, level.height):
+            for pos_x in range(0, level.width):
+                level.tiles_list[pos_y][pos_x].draw(self.displaysurf)
+                try:
+                    if level.tiles_list[pos_y][pos_x].element:
+                        self.draw_element(level.tiles_list[pos_y][pos_x].element)
+                except AttributeError:
+                    continue
+
+    def draw_element(self, element):
+        if not element.is_picked:
+            self.displaysurf.blit(element.image, element.rect)
 
     def draw_player(self, player):
         self.displaysurf.blit(player.image, player.rect)
