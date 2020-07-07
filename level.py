@@ -36,8 +36,7 @@ class Level:
                 tile_type = config.get(map_layout[pos_y][pos_x], "name")
                 image = config.get(map_layout[pos_y][pos_x], "image")
                 self.tiles_list.append(tile.Tile(tile_type, image, pos_x, pos_y, is_blocking))
-        self.tiles_list = [self.tiles_list[x:x+self.width] for x in \
-            range(0, len(self.tiles_list), self.width)]
+        self.tiles_list = [self.tiles_list[x:x+self.width] for x in range(0, len(self.tiles_list), self.width)]
         self.drop_items_on_grid()
 
     def get_start_tile(self):
@@ -63,9 +62,7 @@ class Level:
         free_tiles_list = []
         for pos_y in range(self.height):
             for pos_x in range(self.width):
-                if not self.tiles_list[pos_y][pos_x].is_blocking and \
-                    self.tiles_list[pos_y][pos_x].tile_type != "exit" and \
-                    self.tiles_list[pos_y][pos_x].tile_type != "start":
+                if not self.tiles_list[pos_y][pos_x].is_blocking and self.tiles_list[pos_y][pos_x].tile_type != "exit" and self.tiles_list[pos_y][pos_x].tile_type != "start":
                     free_tiles_list.append(self.tiles_list[pos_y][pos_x])
         for item in items_list:
             index = random.randrange(0, len(free_tiles_list))

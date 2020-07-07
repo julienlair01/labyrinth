@@ -1,43 +1,35 @@
 # coding: utf-8
 """ This is the main file of the Escape MacGyver game.
-    It initializes main game objects,
-    and contains the main game loop """
-import sys
-
-import pygame
-from pygame.locals import QUIT
+    It initializes main game objects, calls the right method
+    according to game mode (UI or text) and contains the main game loop. """
 
 import level
 import player
-from constants import FPS, TILESIZE
+import ui
+from constants import FPS
 
-pygame.init()
-pygame.font.init()
-font = pygame.font.Font(None, 28)
-text = font.render("Your bag: ", True, (0, 128, 0))
-
-
-FramePerSec = pygame.time.Clock()
 level = level.Level()
 player = player.Player(level)
-pygame.display.set_caption("Escape MacGyver")
+ui = ui.UI(level)
 end_of_game = False
+# game_mode = input("Do you want to play the text or the nice UI version (type text or ui to continue)\n")
+game_mode = "ui"
 
 while not end_of_game:
-    DISPLAYSURF = pygame.display.set_mode((TILESIZE * level.width, TILESIZE * level.height + TILESIZE))
-    level.draw(DISPLAYSURF)
-    for event in pygame.event.get():
-        if event.type == QUIT:
-            pygame.quit()
-            sys.exit()
-    player.update(level, TILESIZE * level.width, TILESIZE * level.height)
-    player.draw(DISPLAYSURF)
-    DISPLAYSURF.blit(text, (45, 765))
+    if game_mode == "ui":
+        ui.draw_ui(level, player)
+        ui.pygame_event_get()
+        ui.update_player(level, player)
+        player.pick_item(level)
+        ui.frame_per_sec.tick(FPS)  # not satisfied of having it here
+    elif game_mode == "text":
+        # text.update.player(level, player)
+        # player.pick_item(level)
+        print("Not supported yet... coming soon...")
+        end_of_game = True
     if player.has_found_exit(level):
         end_of_game = True
         if player.has_picked_all_items():
             print("Congratulationss, you escaped!")
         else:
-            print("Ooops... you lost!")
-
-    FramePerSec.tick(FPS)
+            print("Ooops... You did not pick all required items... You lost! HAHAHAHA!!!")
