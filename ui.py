@@ -9,7 +9,7 @@ from pygame.locals import K_UP, K_DOWN, K_LEFT, K_RIGHT, QUIT
 from constants import TILESIZE
 
 
-class UI():
+class UI:
 
     def __init__(self, level):
         """ Constructor of the class UI. It initializes pygame. """
@@ -19,6 +19,12 @@ class UI():
         self.font = pygame.font.Font(None, 28)
         self.text = self.font.render("Your bag: ", True, (0, 128, 0))
         self.frame_per_sec = pygame.time.Clock()
+    
+    def display_game(self, level, player, FPS):
+        self.draw_ui(level, player)
+        self.pygame_event_get()
+        self.update_player(level, player)
+        self.frame_per_sec.tick(FPS)
 
     def draw_ui(self, level, player):
         """ Draws the entire game UI by calling the respective method

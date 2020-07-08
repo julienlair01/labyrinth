@@ -29,7 +29,6 @@ class Player(pygame.sprite.Sprite):
             self.pos_x -= 1
         elif direction == "right":
             self.pos_x += 1
-        print("Moving", direction)
 
     def has_found_exit(self, level):
         """Returns True if the player reached the exit tile"""
