@@ -7,7 +7,7 @@ import os
 import sys
 
 import pygame
-from pygame.locals import K_UP, K_DOWN, K_LEFT, K_RIGHT, QUIT
+from pygame.locals import K_UP, K_DOWN, K_LEFT, K_RIGHT, K_ESCAPE, QUIT
 
 from constants import TILESIZE, FPS
 
@@ -16,8 +16,7 @@ class UI:
 
     def __init__(self, level):
         """ Constructor of the class UI.
-        It initializes pygame, and display elements on screen,
-        that won't need an update.
+        Initializes pygame.
 
         Keyword arguments:
         level -- an instance of the class Level
@@ -26,7 +25,6 @@ class UI:
         pygame.font.init()
         pygame.display.set_caption("Escape MacGyver")
         self.font = pygame.font.Font(None, 28)
-        self.text = self.font.render("Your bag: ", True, (0, 128, 0))
         self.displaysurf = pygame.display.set_mode((TILESIZE * level.width, TILESIZE * level.height + TILESIZE))
         self.displaysurf.fill("grey")
         self.frame_per_sec = pygame.time.Clock()
@@ -52,7 +50,7 @@ class UI:
         """
         self.draw_level(level)
         self.draw_player(player)
-        self.draw_text()
+        self.draw_text("black", "Your bag: ", (45, 765))
 
     def draw_level(self, level):
         """ Draws the map by drawing each tile of the grid,
@@ -95,11 +93,12 @@ class UI:
                 image = pygame.image.load(absolute_path)
                 self.displaysurf.blit(image, rect)
 
-    def draw_text(self):
-        """ Draws the text representing the plyaer's bag
+    def draw_text(self, color, message, text_position):
+        """ Draws the text representing the player's bag
         at the bottom of the screen.
         """
-        self.displaysurf.blit(self.text, (45, 765))
+        self.text = self.font.render(message, True, color)
+        self.displaysurf.blit(self.text, text_position)
 
     def update_player(self, level, player):
         """ Converts the user input into a moving direction
@@ -129,3 +128,4 @@ class UI:
             if event.type == QUIT:
                 pygame.quit()
                 sys.exit()
+ 
