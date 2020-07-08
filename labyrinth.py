@@ -1,7 +1,7 @@
 # coding: utf-8
 """ This is the main file of the Escape MacGyver game.
-    It initializes main game objects, calls the right method
-    according to game mode (UI or text) and contains the main game loop. """
+    It contains the Labyrinth class, initializing the main game objects,
+    and manages the main game loop. """
 
 import level
 import player
@@ -19,7 +19,7 @@ class Labyrinth:
     def main_loop(self):
         end_of_game = False
         while not end_of_game:
-            self.ui.display_game(self.level, self.player, FPS)
+            self.ui.display_game(self.level, self.player)
             self.player.pick_item(self.level)
             if self.player.has_found_exit(self.level):
                 end_of_game = True
@@ -27,6 +27,7 @@ class Labyrinth:
                     print("Congratulationss, you escaped!")
                 else:
                     print("Ooops... You did not pick all required items... You lost! HAHAHAHA!!!")
+
 
 game = Labyrinth()
 game.main_loop()

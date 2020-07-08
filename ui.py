@@ -1,4 +1,7 @@
 # coding: utf-8
+""" This module contains the UI class.
+    It manages everything that is needed to display
+    the game on the screen, using pygame. """
 
 import os
 import sys
@@ -6,14 +9,19 @@ import sys
 import pygame
 from pygame.locals import K_UP, K_DOWN, K_LEFT, K_RIGHT, QUIT
 
-from constants import TILESIZE
+from constants import TILESIZE, FPS
 
 
 class UI:
 
     def __init__(self, level):
-        """ Constructor of the class UI. It initializes pygame and
-        screen background. """
+        """ Constructor of the class UI.
+        It initializes pygame, and display elements on screen,
+        that won't need an update.
+
+        Keyword arguments:
+        level -- an instance of the class Level
+        """
         pygame.init()
         pygame.font.init()
         pygame.display.set_caption("Escape MacGyver")
@@ -22,23 +30,37 @@ class UI:
         self.displaysurf = pygame.display.set_mode((TILESIZE * level.width, TILESIZE * level.height + TILESIZE))
         self.displaysurf.fill("grey")
         self.frame_per_sec = pygame.time.Clock()
-    
-    def display_game(self, level, player, FPS):
+
+    def display_game(self, level, player):
+        """ Displays and updates the game objects on the screen.
+
+        Keyword arguments:
+        level -- an instance of the class Level
+        player -- an instance if the class Player
+        """
         self.draw_ui(level, player)
         self.pygame_event_get()
         self.update_player(level, player)
         self.frame_per_sec.tick(FPS)
 
     def draw_ui(self, level, player):
-        """ Draws the entire game UI by calling the respective method
-        for each element of the ui """
+        """ Draws the game UI.
+
+        Keyword arguments:
+        level -- an instance of the class Level
+        player -- an instance if the class Player
+        """
         self.draw_level(level)
         self.draw_player(player)
         self.draw_text()
 
     def draw_level(self, level):
         """ Draws the map by drawing each tile of the grid,
-        and the element located on the tile """
+        and the element located on the tile.
+        
+        Keyword arguments:
+        level -- an instance of the class Level
+        """
         self.displaysurf = pygame.display.set_mode((TILESIZE * level.width, TILESIZE * level.height + TILESIZE))
         for pos_y in range(0, level.height):
             for pos_x in range(0, level.width):
@@ -51,7 +73,11 @@ class UI:
 
     def draw_element(self, element):
         """ Draws an element on a specific tile:
-        can be one of the unpicked items or the guard """
+        can be one of the unpicked items or the guard
+                
+        Keyword arguments:
+        element -- an instance of the class Element
+        """
         if not element.is_picked:
             self.displaysurf.blit(element.image, element.rect)
 
@@ -71,14 +97,18 @@ class UI:
 
     def draw_text(self):
         """ Draws the text representing the plyaer's bag
-        at the bottom of the screen. """
+        at the bottom of the screen.
+        """
         self.displaysurf.blit(self.text, (45, 765))
 
     def update_player(self, level, player):
         """ Converts the user input into a moving direction
-        for the player. It only updates the sprite of the player
-        and calls the player method move, which manages
-        the coordinates update. """
+        for the player and update the player's sprite.
+        
+        Keyword arguments:
+        level -- an instance of the class Level
+        player -- an instance if the class Player
+        """
         pressed_keys = pygame.key.get_pressed()
         if player.rect.top > 0 and pressed_keys[K_UP] and level.can_move(player.pos_x, player.pos_y - 1):
             player.rect.move_ip(0, -TILESIZE)
@@ -94,6 +124,7 @@ class UI:
             player.move("right")
 
     def pygame_event_get(self):
+        """ Captures event for pygame. """
         for event in pygame.event.get():
             if event.type == QUIT:
                 pygame.quit()
