@@ -15,7 +15,7 @@ class Labyrinth:
         self.level = level.Level()
         self.player = player.Player(self.level)
         self.ui = ui.UI(self.level)
-    
+
     def main_loop(self):
         end_of_game = False
         while not end_of_game:
