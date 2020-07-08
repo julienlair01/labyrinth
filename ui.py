@@ -7,7 +7,7 @@ import os
 import sys
 
 import pygame
-from pygame.locals import K_UP, K_DOWN, K_LEFT, K_RIGHT, K_ESCAPE, QUIT
+from pygame.locals import K_UP, K_DOWN, K_LEFT, K_RIGHT, QUIT
 
 from constants import TILESIZE, FPS
 
@@ -55,7 +55,7 @@ class UI:
     def draw_level(self, level):
         """ Draws the map by drawing each tile of the grid,
         and the element located on the tile.
-        
+
         Keyword arguments:
         level -- an instance of the class Level
         """
@@ -72,7 +72,7 @@ class UI:
     def draw_element(self, element):
         """ Draws an element on a specific tile:
         can be one of the unpicked items or the guard
-                
+
         Keyword arguments:
         element -- an instance of the class Element
         """
@@ -103,7 +103,7 @@ class UI:
     def update_player(self, level, player):
         """ Converts the user input into a moving direction
         for the player and update the player's sprite.
-        
+
         Keyword arguments:
         level -- an instance of the class Level
         player -- an instance if the class Player
@@ -128,4 +128,3 @@ class UI:
             if event.type == QUIT:
                 pygame.quit()
                 sys.exit()
- 

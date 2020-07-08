@@ -1,14 +1,13 @@
 # coding: utf-8
 """ This is the main file of the Escape MacGyver game.
     It contains the Labyrinth class, initializing the main game objects,
-    and manages the main game loop. """
+    manages the main game loop and the end of game. """
 
 from os import system
 
 import level
 import player
 import ui
-from constants import FPS
 
 
 class Labyrinth:
@@ -33,6 +32,7 @@ class Labyrinth:
                 else:
                     print("Ooops... You did not pick all required items... You lost! HAHAHAHA!!!")
                     self.ui.draw_text("red", "You lost! HAHAHAHA!", (415, 765))
+
 
 game = Labyrinth()
 game.main_loop()
