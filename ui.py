@@ -12,12 +12,15 @@ from constants import TILESIZE
 class UI:
 
     def __init__(self, level):
-        """ Constructor of the class UI. It initializes pygame. """
+        """ Constructor of the class UI. It initializes pygame and
+        screen background. """
         pygame.init()
         pygame.font.init()
         pygame.display.set_caption("Escape MacGyver")
         self.font = pygame.font.Font(None, 28)
         self.text = self.font.render("Your bag: ", True, (0, 128, 0))
+        self.displaysurf = pygame.display.set_mode((TILESIZE * level.width, TILESIZE * level.height + TILESIZE))
+        self.displaysurf.fill("grey")
         self.frame_per_sec = pygame.time.Clock()
     
     def display_game(self, level, player, FPS):

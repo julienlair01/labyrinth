@@ -37,7 +37,9 @@ class Level:
                 image = config.get(map_layout[pos_y][pos_x], "image")
                 self.tiles_list.append(tile.Tile(tile_type, image, pos_x, pos_y, is_blocking))
         self.tiles_list = [self.tiles_list[x:x+self.width] for x in range(0, len(self.tiles_list), self.width)]
+        print("Level generation: OK")
         self.drop_items_on_grid()
+        print("Items dropped on grid: OK")
 
     def get_start_tile(self):
         """ Returns the position of the start tile in the tiles_list table. """
