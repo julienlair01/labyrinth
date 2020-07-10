@@ -82,7 +82,11 @@ class UI:
     def draw_player(self, player):
         """ Draws the player on the grid, according to its position.
         Draws also the player's bag, containing the items picked
-        by the player. """
+        by the player. 
+        
+        Keyword arguments:
+        player -- an instance of the class Player
+        """
         self.displaysurf.blit(player.image, player.rect)
         if player.bag:
             for index, value in enumerate(player.bag):
@@ -96,6 +100,11 @@ class UI:
     def draw_text(self, color, message, text_position):
         """ Draws the text representing the player's bag
         at the bottom of the screen.
+
+        Keyword arguments:
+        color -- the color of the text
+        message -- the text to be displayed
+        text_position -- position of the text on the screen
         """
         self.text = self.font.render(message, True, color)
         self.displaysurf.blit(self.text, text_position)

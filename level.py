@@ -12,18 +12,21 @@ import tile
 
 class Level:
     """ This is the class which represent the game level.
-        It contains all methods needed to initialize,
-        generate and manipulate elements on the grid. """
+    It contains all methods needed to initialize,
+    generate and manipulate elements on the grid.
+    """
 
     def __init__(self):
         """ This is the Level clas constructor. It creates an empty
-            list of tiles, which will be used to reprensent the grid. """
+        list of tiles, which will be used to reprensent the grid.
+        """
         self.tiles_list = []
         self.generate_level()
 
     def generate_level(self):
         """ Creates map individual tiles in the tiles_list table,
-        based on the layout in the config file. """
+        based on the layout in the config file.
+        """
         config = configparser.ConfigParser()
         absolute_path = os.path.join(os.path.dirname(__file__), "level_config.ini")
         config.read(absolute_path)
@@ -59,7 +62,8 @@ class Level:
 
     def drop_items_on_grid(self):
         """ Position on the grid the 3 items Macgyver must pick to escape.
-            It uses a temporary list of available tiles (no wall / character). """
+        It uses a temporary list of available tiles (no wall / character).
+        """
         items_list = ["plastic_tube", "needle", "ether"]
         free_tiles_list = []
         for pos_y in range(self.height):
@@ -71,17 +75,32 @@ class Level:
             free_tiles_list[index].add_element(item)
 
     def can_move(self, pos_x, pos_y):
-        """ Returns True if tile is free to move to, False if it is blocked. """
+        """ Returns True if tile is free to move to, False if it is blocked. 
+
+        Keyword arguments:
+        pos_x -- x position of the tile to check
+        pos_y -- y position fo the tiel to check
+        """
         return not self.tiles_list[pos_y][pos_x].is_blocking
 
     def is_exit_tile(self, pos_x, pos_y):
         """ Returns True if the tile is the exit tile, where the guard stands.
             It is used to position the guard at the game initilization and to
-            know whether the player reached the exit of the maze or not. """
+            know whether the player reached the exit of the maze or not.
+
+            Keyword arguments:
+            pos_x -- x position of the tile to check
+            pos_y -- y position fo the tiel to check
+        """
         return (pos_x, pos_y) == self.get_exit_tile()
 
     def pick_element(self, pos_x, pos_y):
-        """ Returns the element present on the tile where the player stands. """
+        """ Returns the element present on the tile where the player stands.
+
+            Keyword arguments:
+            pos_x -- x position of the tile to check
+            pos_y -- y position fo the tiel to check
+            """
         if self.tiles_list[pos_y][pos_x].element and self.tiles_list[pos_y][pos_x].element.is_pickable:
             element = self.tiles_list[pos_y][pos_x].element
             self.tiles_list[pos_y][pos_x].element = None
@@ -89,14 +108,3 @@ class Level:
         else:
             return None
 
-    def draw(self, displaysurf):
-        """Draws the map by drawing each tile of the grid,
-        and the element located on the tile"""
-        for pos_y in range(0, self.height):
-            for pos_x in range(0, self.width):
-                self.tiles_list[pos_y][pos_x].draw(displaysurf)
-                try:
-                    if self.tiles_list[pos_y][pos_x].element:
-                        self.tiles_list[pos_y][pos_x].element.draw(displaysurf)
-                except AttributeError:
-                    continue

@@ -11,6 +11,16 @@ from constants import TILESIZE
 class Tile():
 
     def __init__(self, tile_type, image, pos_x, pos_y, is_blocking):
+        """ Constructor of the class Tile.
+        Initializes attribute of a single tile, according to layout.
+
+        Keyword arguments:
+        tile_type -- wall, floor, start or exit
+        image -- image representing the tile
+        pos_x -- x position of the tile
+        pos_y -- y position of the tile
+        is_blocking -- whether the tile blocks (wall) or not
+        """
         self.pos_x = pos_x
         self.pos_y = pos_y
         self.tile_type = tile_type
@@ -24,7 +34,11 @@ class Tile():
         self.rect = self.surf.get_rect(topleft=(TILESIZE * self.pos_x, TILESIZE * self.pos_y))
 
     def add_element(self, element_type):
-        """Adds an element on the tile (guard or item)"""
+        """Adds an element on the tile (guard or item). 
+        
+        Keyword arguments:
+        element_type -- guard or item
+        """
         if element_type == "guard":
             self.element = element.Element(self.pos_x, self.pos_y, element_type, "assets/Gardien.png")
         elif element_type == "plastic_tube":
@@ -33,9 +47,6 @@ class Tile():
             self.element = element.Element(self.pos_x, self.pos_y, element_type, "assets/needle.png")
         elif element_type == "ether":
             self.element = element.Element(self.pos_x, self.pos_y, element_type, "assets/ether.png")
-
-    def get_info(self):
-        return {"tile_type": self.tile_type, "is_blocking": self.is_blocking}
 
     def draw(self, surface):
         """Draws the single tile"""

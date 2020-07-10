@@ -43,5 +43,6 @@ class Player(pygame.sprite.Sprite):
             print("You picked an item:", element.content)
 
     def has_picked_all_items(self):
-        """Checks if Player has picked all 3 items"""
+        """ Checks if Player has picked all 3 items. 
+            Returns True or False. """
         return len(self.bag) == 3
