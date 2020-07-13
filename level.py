@@ -26,6 +26,8 @@ class Level:
         absolute_path = os.path.join(os.path.dirname(__file__), "level_config.ini")
         config.read(absolute_path)
         map_layout = config.get("level", "layout").split("\n")
+        self.width = len(map_layout[0])
+        self.height = len(map_layout)
         return map_layout, config
 
     def generate_level(self):
@@ -33,8 +35,6 @@ class Level:
         based on the layout in the config file.
         """
         map_layout, config = self.load_config()
-        self.width = len(map_layout[0])
-        self.height = len(map_layout)
         for pos_y in range(self.height):
             for pos_x in range(self.width):
                 is_blocking = config.getboolean(map_layout[pos_y][pos_x], "is_blocking")

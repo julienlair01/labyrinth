@@ -19,7 +19,6 @@ class Element:
         pos_x -- x position of the tile the element is located on
         pos_y -- y position of the tile the element is located on
         content -- what the element contains (guard or item)
-        image -- image name according to content
         """
         self.content = content
         self.is_picked = False

@@ -12,7 +12,7 @@ from gui import gui_player
 from gui import gui_level
 
 
-class Labyrinth:
+class Game:
 
     def __init__(self, game_mode):
         if game_mode == "ui":
@@ -46,5 +46,5 @@ class Labyrinth:
                     self.gui.draw_text("red", "You lost! HAHAHAHA!", (415, 765))
 
 game_mode = "ui"
-game = Labyrinth(game_mode)
+game = Game(game_mode)
 game.main_loop(game_mode)
