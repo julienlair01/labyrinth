@@ -3,8 +3,6 @@
     It is used by the main game loop, to generate the player character. """
 import os
 
-import pygame
-
 from constants import TILESIZE
 
 
