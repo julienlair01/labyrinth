@@ -1,9 +1,6 @@
 # coding: utf-8
 
-import os
-
 import element
-from constants import TILESIZE
 
 
 class Tile():
@@ -28,18 +25,20 @@ class Tile():
             self.add_element("guard")
 
     def add_element(self, element_type):
-        """Adds an element on the tile (guard or item). 
-        
+        """Adds an element on the tile (guard or item).
+
         Keyword arguments:
         element_type -- guard or item
         """
         if element_type == "guard":
-            self.element = element.Element(self.pos_x, self.pos_y, element_type)
+            self.element = element.Element(self.pos_x, self.pos_y,
+                                           element_type)
         elif element_type == "plastic_tube":
-            self.element = element.Element(self.pos_x, self.pos_y, element_type)
+            self.element = element.Element(self.pos_x, self.pos_y,
+                                           element_type)
         elif element_type == "needle":
-            self.element = element.Element(self.pos_x, self.pos_y, element_type)
+            self.element = element.Element(self.pos_x, self.pos_y,
+                                           element_type)
         elif element_type == "ether":
-            self.element = element.Element(self.pos_x, self.pos_y, element_type)
-
-
+            self.element = element.Element(self.pos_x, self.pos_y,
+                                           element_type)

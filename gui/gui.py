@@ -25,7 +25,9 @@ class GUI:
         pygame.font.init()
         pygame.display.set_caption("Escape MacGyver")
         self.font = pygame.font.Font(None, 28)
-        self.displaysurf = pygame.display.set_mode((TILESIZE * level.width, TILESIZE * level.height + TILESIZE))
+        self.displaysurf = pygame.display.set_mode((
+                                    TILESIZE * level.width,
+                                    TILESIZE * level.height + TILESIZE))
         self.displaysurf.fill("grey")
         self.frame_per_sec = pygame.time.Clock()
 
@@ -59,13 +61,15 @@ class GUI:
         Keyword arguments:
         level -- an instance of the class Level
         """
-        self.displaysurf = pygame.display.set_mode((TILESIZE * level.width, TILESIZE * level.height + TILESIZE))
+        self.displaysurf = pygame.display.set_mode(
+            (TILESIZE * level.width, TILESIZE * level.height + TILESIZE))
         for pos_y in range(0, level.height):
             for pos_x in range(0, level.width):
                 level.tiles_list[pos_y][pos_x].draw(self.displaysurf)
                 try:
                     if level.tiles_list[pos_y][pos_x].element:
-                        self.draw_element(level.tiles_list[pos_y][pos_x].element)
+                        self.draw_element(
+                            level.tiles_list[pos_y][pos_x].element)
                 except AttributeError:
                     continue
 
@@ -82,8 +86,8 @@ class GUI:
     def draw_player(self, player):
         """ Draws the player on the grid, according to its position.
         Draws also the player's bag, containing the items picked
-        by the player. 
-        
+        by the player.
+
         Keyword arguments:
         player -- an instance of the class Player
         """
@@ -91,9 +95,11 @@ class GUI:
         if player.bag:
             for index, value in enumerate(player.bag):
                 surf = pygame.Surface((TILESIZE, TILESIZE))
-                rect = surf.get_rect(topleft=(3 * TILESIZE + TILESIZE * index, 750))
+                rect = surf.get_rect(topleft=(
+                    3 * TILESIZE + TILESIZE * index, 750))
                 img_filename = value.content + ".png"
-                absolute_path = os.path.join(os.path.dirname(__file__), "assets", img_filename)
+                absolute_path = os.path.join(os.path.dirname(__file__),
+                                             "assets", img_filename)
                 image = pygame.image.load(absolute_path)
                 self.displaysurf.blit(image, rect)
 

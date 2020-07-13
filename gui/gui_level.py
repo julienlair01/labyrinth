@@ -3,20 +3,15 @@
     It extends the Player class with the pygame-related
     attributes, in order to play the game using a GUI. """
 
-import os
-import configparser
-
-import pygame
-
 import level
 from gui import gui_tile
-from constants import TILESIZE
+
 
 class GUILevel(level.Level):
-    
+
     def __init__(self):
         super().__init__()
-    
+
     def generate_level(self):
         """ Creates map individual tiles in the tiles_list table,
         based on the layout in the config file.
@@ -31,4 +26,4 @@ class GUILevel(level.Level):
         self.tiles_list = [self.tiles_list[x:x+self.width] for x in range(0, len(self.tiles_list), self.width)]
         print("Level generation: OK")
         self.drop_items_on_grid()
-        print("Items dropped on grid: OK") 
+        print("Items dropped on grid: OK")

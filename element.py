@@ -1,11 +1,7 @@
 # coding: utf-8
-""" Module containing the Element class, 
+""" Module containing the Element class,
 representing the items (plastic tube, needle and ether)
 and the guard. """
-
-import os
-
-from constants import TILESIZE
 
 
 class Element:

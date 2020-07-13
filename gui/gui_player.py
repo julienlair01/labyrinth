@@ -12,7 +12,7 @@ from constants import TILESIZE
 
 
 class GUIPlayer(player.Player, pygame.sprite.Sprite):
-    
+
     def __init__(self, level):
         super().__init__(level)
         absolute_path = os.path.join(os.path.dirname(__file__), "assets", "MacGyver.png")

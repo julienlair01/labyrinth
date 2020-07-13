@@ -9,6 +9,7 @@ import configparser
 
 import tile
 
+
 class Level:
     """ This is the class which represent the game level.
     It contains all methods needed to initialize,
@@ -23,7 +24,9 @@ class Level:
 
     def load_config(self):
         config = configparser.ConfigParser()
-        absolute_path = os.path.join(os.path.dirname(__file__), "level_config.ini")
+        absolute_path = os.path.join(
+            os.path.dirname(__file__),
+            "level_config.ini")
         config.read(absolute_path)
         map_layout = config.get("level", "layout").split("\n")
         self.width = len(map_layout[0])
@@ -37,10 +40,16 @@ class Level:
         map_layout, config = self.load_config()
         for pos_y in range(self.height):
             for pos_x in range(self.width):
-                is_blocking = config.getboolean(map_layout[pos_y][pos_x], "is_blocking")
+                is_blocking = config.getboolean(
+                    map_layout[pos_y][pos_x],
+                    "is_blocking")
                 tile_type = config.get(map_layout[pos_y][pos_x], "name")
-                self.tiles_list.append(tile.Tile(tile_type, pos_x, pos_y, is_blocking))
-        self.tiles_list = [self.tiles_list[x:x+self.width] for x in range(0, len(self.tiles_list), self.width)]
+                self.tiles_list.append(tile.Tile(tile_type, pos_x, pos_y,
+                                                 is_blocking))
+        self.tiles_list = [self.tiles_list[x:x+self.width] for x in range(
+            0,
+            len(self.tiles_list),
+            self.width)]
         print("Level generation: OK")
         self.drop_items_on_grid()
         print("Items dropped on grid: OK")
@@ -69,14 +78,17 @@ class Level:
         free_tiles_list = []
         for pos_y in range(self.height):
             for pos_x in range(self.width):
-                if not self.tiles_list[pos_y][pos_x].is_blocking and self.tiles_list[pos_y][pos_x].tile_type != "exit" and self.tiles_list[pos_y][pos_x].tile_type != "start":
+                if (not self.tiles_list[pos_y][pos_x].is_blocking and
+                        self.tiles_list[pos_y][pos_x].tile_type != "exit" and
+                        self.tiles_list[pos_y][pos_x].tile_type != "start"):
                     free_tiles_list.append(self.tiles_list[pos_y][pos_x])
         for item in items_list:
             index = random.randrange(0, len(free_tiles_list))
             free_tiles_list[index].add_element(item)
 
     def can_move(self, pos_x, pos_y):
-        """ Returns True if tile is free to move to, False if it is blocked. 
+        """ Returns True if tile is free to move to,
+        False if it is blocked.
 
         Keyword arguments:
         pos_x -- x position of the tile to check
@@ -102,10 +114,10 @@ class Level:
             pos_x -- x position of the tile to check
             pos_y -- y position fo the tiel to check
             """
-        if self.tiles_list[pos_y][pos_x].element and self.tiles_list[pos_y][pos_x].element.is_pickable:
+        if (self.tiles_list[pos_y][pos_x].element and
+           self.tiles_list[pos_y][pos_x].element.is_pickable):
             element = self.tiles_list[pos_y][pos_x].element
             self.tiles_list[pos_y][pos_x].element = None
             return element
         else:
             return None
-

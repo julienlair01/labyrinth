@@ -1,9 +1,6 @@
 # coding: utf-8
 """ This module contains the Player class and related methods.
     It is used by the main game loop, to generate the player character. """
-import os
-
-from constants import TILESIZE
 
 
 class Player:
@@ -13,7 +10,8 @@ class Player:
         self.bag = []
 
     def move(self, direction):
-        """ Updates MacGyver coordinates according to movement applied by player. """
+        """ Updates MacGyver coordinates according to
+            movement applied by player. """
         if direction == "up":
             self.pos_y -= 1
         elif direction == "down":
@@ -36,6 +34,6 @@ class Player:
             print("You picked an item:", element.content)
 
     def has_picked_all_items(self):
-        """ Checks if Player has picked all 3 items. 
+        """ Checks if Player has picked all 3 items.
             Returns True or False. """
         return len(self.bag) == 3

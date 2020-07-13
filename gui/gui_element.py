@@ -8,7 +8,8 @@ import os
 import pygame
 
 import element
-from constants import TILESIZE 
+from constants import TILESIZE
+
 
 class GUIElement(element.Element):
     def __init__(self, pos_x, pos_y, content, image):
@@ -16,4 +17,5 @@ class GUIElement(element.Element):
         absolute_path = os.path.join(os.path.dirname(__file__), image)
         self.image = pygame.image.load(absolute_path)
         self.surf = pygame.Surface((TILESIZE, TILESIZE))
-        self.rect = self.surf.get_rect(topleft=(TILESIZE * pos_x, TILESIZE * pos_y))
+        self.rect = self.surf.get_rect(topleft=(
+                                        TILESIZE * pos_x, TILESIZE * pos_y))

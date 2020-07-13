@@ -8,9 +8,8 @@ import os
 import pygame
 
 import tile
-import element
 from gui import gui_element
-from constants import TILESIZE 
+from constants import TILESIZE
 
 
 class GUITile(tile.Tile):
@@ -21,10 +20,10 @@ class GUITile(tile.Tile):
         self.image = pygame.image.load(absolute_path)
         self.surf = pygame.Surface((TILESIZE, TILESIZE))
         self.rect = self.surf.get_rect(topleft=(TILESIZE * self.pos_x, TILESIZE * self.pos_y))
-    
+
     def add_element(self, element_type):
-        """Adds an UI element on the tile (guard or item). 
-        
+        """Adds an UI element on the tile (guard or item).
+
         Keyword arguments:
         element_type -- guard or item
         """
@@ -40,4 +39,3 @@ class GUITile(tile.Tile):
     def draw(self, surface):
         """Draws the single tile"""
         surface.blit(self.image, self.rect)
-        
