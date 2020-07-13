@@ -16,7 +16,7 @@ from constants import TILESIZE
 class GUITile(tile.Tile):
 
     def __init__(self, tile_type, image, pos_x, pos_y, is_blocking):
-        super().__init__(tile_type, image, pos_x, pos_y, is_blocking)
+        super().__init__(tile_type, pos_x, pos_y, is_blocking)
         absolute_path = os.path.join(os.path.dirname(__file__), image)
         self.image = pygame.image.load(absolute_path)
         self.surf = pygame.Surface((TILESIZE, TILESIZE))

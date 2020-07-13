@@ -10,7 +10,7 @@ from constants import TILESIZE
 
 class Element:
 
-    def __init__(self, pos_x, pos_y, content, image):
+    def __init__(self, pos_x, pos_y, content):
         """ Constructor of the class Element.
         Specify whether an element is pickable or not,
         and whether the element has already been picked or not.

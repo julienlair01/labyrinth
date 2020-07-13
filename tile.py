@@ -8,7 +8,7 @@ from constants import TILESIZE
 
 class Tile():
 
-    def __init__(self, tile_type, image, pos_x, pos_y, is_blocking):
+    def __init__(self, tile_type, pos_x, pos_y, is_blocking):
         """ Constructor of the class Tile.
         Initializes attribute of a single tile, according to layout.
 
@@ -34,12 +34,12 @@ class Tile():
         element_type -- guard or item
         """
         if element_type == "guard":
-            self.element = element.Element(self.pos_x, self.pos_y, element_type, "assets/Gardien.png")
+            self.element = element.Element(self.pos_x, self.pos_y, element_type)
         elif element_type == "plastic_tube":
-            self.element = element.Element(self.pos_x, self.pos_y, element_type, "assets/plastic_tube.png")
+            self.element = element.Element(self.pos_x, self.pos_y, element_type)
         elif element_type == "needle":
-            self.element = element.Element(self.pos_x, self.pos_y, element_type, "assets/needle.png")
+            self.element = element.Element(self.pos_x, self.pos_y, element_type)
         elif element_type == "ether":
-            self.element = element.Element(self.pos_x, self.pos_y, element_type, "assets/ether.png")
+            self.element = element.Element(self.pos_x, self.pos_y, element_type)
 
 

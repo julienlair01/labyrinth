@@ -12,7 +12,7 @@ from constants import TILESIZE
 
 class GUIElement(element.Element):
     def __init__(self, pos_x, pos_y, content, image):
-        super().__init__(pos_x, pos_y, content, image)
+        super().__init__(pos_x, pos_y, content)
         absolute_path = os.path.join(os.path.dirname(__file__), image)
         self.image = pygame.image.load(absolute_path)
         self.surf = pygame.Surface((TILESIZE, TILESIZE))

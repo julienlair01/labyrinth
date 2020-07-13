@@ -8,8 +8,6 @@ import os
 import configparser
 
 import tile
-from gui import gui_tile
-
 
 class Level:
     """ This is the class which represent the game level.
@@ -17,32 +15,31 @@ class Level:
     generate and manipulate elements on the grid.
     """
 
-    def __init__(self, game_mode):
+    def __init__(self):
         """ This is the Level clas constructor. It creates an empty
         list of tiles, which will be used to reprensent the grid.
         """
         self.tiles_list = []
-        self.generate_level(game_mode)
 
-    def generate_level(self, game_mode):
-        """ Creates map individual tiles in the tiles_list table,
-        based on the layout in the config file.
-        """
+    def load_config(self):
         config = configparser.ConfigParser()
         absolute_path = os.path.join(os.path.dirname(__file__), "level_config.ini")
         config.read(absolute_path)
         map_layout = config.get("level", "layout").split("\n")
+        return map_layout, config
+
+    def generate_level(self):
+        """ Creates map individual tiles in the tiles_list table,
+        based on the layout in the config file.
+        """
+        map_layout, config = self.load_config()
         self.width = len(map_layout[0])
         self.height = len(map_layout)
         for pos_y in range(self.height):
             for pos_x in range(self.width):
                 is_blocking = config.getboolean(map_layout[pos_y][pos_x], "is_blocking")
                 tile_type = config.get(map_layout[pos_y][pos_x], "name")
-                image = config.get(map_layout[pos_y][pos_x], "image")
-                if game_mode == "ui":
-                    self.tiles_list.append(gui_tile.GUITile(tile_type, image, pos_x, pos_y, is_blocking))
-                else:
-                    self.tiles_list.append(tile.Tile(tile_type, image, pos_x, pos_y, is_blocking))
+                self.tiles_list.append(tile.Tile(tile_type, pos_x, pos_y, is_blocking))
         self.tiles_list = [self.tiles_list[x:x+self.width] for x in range(0, len(self.tiles_list), self.width)]
         print("Level generation: OK")
         self.drop_items_on_grid()
