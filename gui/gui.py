@@ -12,10 +12,10 @@ from pygame.locals import K_UP, K_DOWN, K_LEFT, K_RIGHT, QUIT
 from constants import TILESIZE, FPS
 
 
-class UI:
+class GUI:
 
     def __init__(self, level):
-        """ Constructor of the class UI.
+        """ Constructor of the class GUI.
         Initializes pygame.
 
         Keyword arguments:
@@ -36,13 +36,13 @@ class UI:
         level -- an instance of the class Level
         player -- an instance if the class Player
         """
-        self.draw_ui(level, player)
+        self.draw_gui(level, player)
         self.pygame_event_get()
         self.update_player(level, player)
         self.frame_per_sec.tick(FPS)
 
-    def draw_ui(self, level, player):
-        """ Draws the game UI.
+    def draw_gui(self, level, player):
+        """ Draws the game Graphical UI.
 
         Keyword arguments:
         level -- an instance of the class Level

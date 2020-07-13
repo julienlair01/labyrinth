@@ -3,4 +3,4 @@
 /.vscode
 labyrinth.code-workspace
 flake8_report.txt
-ui/__pycache__
+/gui/__pycache__

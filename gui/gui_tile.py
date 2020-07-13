@@ -9,11 +9,11 @@ import pygame
 
 import tile
 import element
-from ui import ui_element
+from gui import gui_element
 from constants import TILESIZE 
 
 
-class UITile(tile.Tile):
+class GUITile(tile.Tile):
 
     def __init__(self, tile_type, image, pos_x, pos_y, is_blocking):
         super().__init__(tile_type, image, pos_x, pos_y, is_blocking)
@@ -29,13 +29,13 @@ class UITile(tile.Tile):
         element_type -- guard or item
         """
         if element_type == "guard":
-            self.element = ui_element.UIElement(self.pos_x, self.pos_y, element_type, "assets/Gardien.png")
+            self.element = gui_element.GUIElement(self.pos_x, self.pos_y, element_type, "assets/Gardien.png")
         elif element_type == "plastic_tube":
-            self.element = ui_element.UIElement(self.pos_x, self.pos_y, element_type, "assets/plastic_tube.png")
+            self.element = gui_element.GUIElement(self.pos_x, self.pos_y, element_type, "assets/plastic_tube.png")
         elif element_type == "needle":
-            self.element = ui_element.UIElement(self.pos_x, self.pos_y, element_type, "assets/needle.png")
+            self.element = gui_element.GUIElement(self.pos_x, self.pos_y, element_type, "assets/needle.png")
         elif element_type == "ether":
-            self.element = ui_element.UIElement(self.pos_x, self.pos_y, element_type, "assets/ether.png")
+            self.element = gui_element.GUIElement(self.pos_x, self.pos_y, element_type, "assets/ether.png")
 
     def draw(self, surface):
         """Draws the single tile"""

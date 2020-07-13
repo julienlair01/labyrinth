@@ -10,7 +10,7 @@ import pygame
 import element
 from constants import TILESIZE 
 
-class UIElement(element.Element):
+class GUIElement(element.Element):
     def __init__(self, pos_x, pos_y, content, image):
         super().__init__(pos_x, pos_y, content, image)
         absolute_path = os.path.join(os.path.dirname(__file__), image)

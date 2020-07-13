@@ -1,5 +1,5 @@
 # coding: utf-8
-""" This module contains the UIPlayer class.
+""" This module contains the GUIPlayer class.
     It extends the Player class with the pygame-related
     attributes, in order to play the game using a GUI. """
 
@@ -11,7 +11,7 @@ import player
 from constants import TILESIZE
 
 
-class UIPlayer(player.Player, pygame.sprite.Sprite):
+class GUIPlayer(player.Player, pygame.sprite.Sprite):
     
     def __init__(self, level):
         super().__init__(level)

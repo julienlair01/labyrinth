@@ -8,7 +8,7 @@ import os
 import configparser
 
 import tile
-from ui import ui_tile
+from gui import gui_tile
 
 
 class Level:
@@ -40,7 +40,7 @@ class Level:
                 tile_type = config.get(map_layout[pos_y][pos_x], "name")
                 image = config.get(map_layout[pos_y][pos_x], "image")
                 if game_mode == "ui":
-                    self.tiles_list.append(ui_tile.UITile(tile_type, image, pos_x, pos_y, is_blocking))
+                    self.tiles_list.append(gui_tile.GUITile(tile_type, image, pos_x, pos_y, is_blocking))
                 else:
                     self.tiles_list.append(tile.Tile(tile_type, image, pos_x, pos_y, is_blocking))
         self.tiles_list = [self.tiles_list[x:x+self.width] for x in range(0, len(self.tiles_list), self.width)]
