@@ -8,16 +8,11 @@ import pygame
 from constants import TILESIZE
 
 
-class Player(pygame.sprite.Sprite):
+class Player:
     """ Player class docstring"""
     def __init__(self, level):
-        super().__init__()
         self.pos_x, self.pos_y = level.get_start_tile()
         self.bag = []
-        absolute_path = os.path.join(os.path.dirname(__file__), "assets", "MacGyver.png")
-        self.image = pygame.image.load(absolute_path)
-        self.surf = pygame.Surface((TILESIZE, TILESIZE))
-        self.rect = self.surf.get_rect(topleft=(TILESIZE * self.pos_x, TILESIZE * self.pos_y))
 
     def move(self, direction):
         """ Updates MacGyver coordinates according to movement applied by player. """

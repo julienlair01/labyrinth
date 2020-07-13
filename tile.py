@@ -2,8 +2,6 @@
 
 import os
 
-import pygame
-
 import element
 from constants import TILESIZE
 
@@ -26,12 +24,8 @@ class Tile():
         self.tile_type = tile_type
         self.is_blocking = is_blocking
         self.element = []
-        absolute_path = os.path.join(os.path.dirname(__file__), image)
-        self.image = pygame.image.load(absolute_path)
         if self.tile_type == "exit":
             self.add_element("guard")
-        self.surf = pygame.Surface((TILESIZE, TILESIZE))
-        self.rect = self.surf.get_rect(topleft=(TILESIZE * self.pos_x, TILESIZE * self.pos_y))
 
     def add_element(self, element_type):
         """Adds an element on the tile (guard or item). 
@@ -48,6 +42,4 @@ class Tile():
         elif element_type == "ether":
             self.element = element.Element(self.pos_x, self.pos_y, element_type, "assets/ether.png")
 
-    def draw(self, surface):
-        """Draws the single tile"""
-        surface.blit(self.image, self.rect)
+

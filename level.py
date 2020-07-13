@@ -8,6 +8,7 @@ import os
 import configparser
 
 import tile
+from ui import ui_tile
 
 
 class Level:
@@ -16,14 +17,14 @@ class Level:
     generate and manipulate elements on the grid.
     """
 
-    def __init__(self):
+    def __init__(self, game_mode):
         """ This is the Level clas constructor. It creates an empty
         list of tiles, which will be used to reprensent the grid.
         """
         self.tiles_list = []
-        self.generate_level()
+        self.generate_level(game_mode)
 
-    def generate_level(self):
+    def generate_level(self, game_mode):
         """ Creates map individual tiles in the tiles_list table,
         based on the layout in the config file.
         """
@@ -38,7 +39,10 @@ class Level:
                 is_blocking = config.getboolean(map_layout[pos_y][pos_x], "is_blocking")
                 tile_type = config.get(map_layout[pos_y][pos_x], "name")
                 image = config.get(map_layout[pos_y][pos_x], "image")
-                self.tiles_list.append(tile.Tile(tile_type, image, pos_x, pos_y, is_blocking))
+                if game_mode == "ui":
+                    self.tiles_list.append(ui_tile.UITile(tile_type, image, pos_x, pos_y, is_blocking))
+                else:
+                    self.tiles_list.append(tile.Tile(tile_type, image, pos_x, pos_y, is_blocking))
         self.tiles_list = [self.tiles_list[x:x+self.width] for x in range(0, len(self.tiles_list), self.width)]
         print("Level generation: OK")
         self.drop_items_on_grid()

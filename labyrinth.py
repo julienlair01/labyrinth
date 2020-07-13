@@ -7,15 +7,22 @@ from os import system
 
 import level
 import player
-import ui
+from ui import ui
+from ui import ui_player
 
 
 class Labyrinth:
 
     def __init__(self):
-        self.level = level.Level()
-        self.player = player.Player(self.level)
-        self.ui = ui.UI(self.level)
+        game_mode = "ui"
+        if game_mode == "ui":
+            self.level = level.Level(game_mode)
+            self.player = ui_player.UIPlayer(self.level)
+            self.ui = ui.UI(self.level)
+        else:
+            self.level = level.Level(game_mode)
+            self.player = player.Player(self.level)
+            self.ui = ui.UI(self.level)            
         system("clear")
         print("Welcome to Escape MacGyver!\nPick the 3 items and find the exit. Enjoy !")
 

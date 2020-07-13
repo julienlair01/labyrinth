@@ -5,8 +5,6 @@ and the guard. """
 
 import os
 
-import pygame
-
 from constants import TILESIZE
 
 
@@ -24,12 +22,8 @@ class Element:
         image -- image name according to content
         """
         self.content = content
-        absolute_path = os.path.join(os.path.dirname(__file__), image)
-        self.image = pygame.image.load(absolute_path)
         self.is_picked = False
         if self.content == "guard":
             self.is_pickable = False
         else:
             self.is_pickable = True
-        self.surf = pygame.Surface((TILESIZE, TILESIZE))
-        self.rect = self.surf.get_rect(topleft=(TILESIZE * pos_x, TILESIZE * pos_y))
