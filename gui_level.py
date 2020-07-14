@@ -4,7 +4,7 @@
     attributes, in order to play the game using a GUI. """
 
 import level
-from gui import gui_tile
+import gui_tile
 
 
 class GUILevel(level.Level):

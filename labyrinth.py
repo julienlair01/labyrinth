@@ -7,9 +7,9 @@ from os import system
 
 import level
 import player
-from gui import gui
-from gui import gui_player
-from gui import gui_level
+import gui
+import gui_player
+import gui_level
 
 
 class Game:
@@ -42,8 +42,8 @@ class Game:
                 if self.player.has_picked_all_items():
                     print("Congratulationss, you escaped!")
                 else:
-                    print("Ooops... You did not pick all required items...\
-                        You lost! HAHAHAHA!!!")
+                    print("Ooops... You did not pick all required items...")
+                    print("You lost! HAHAHAHA!!!")
 
 
 game_mode = "ui"

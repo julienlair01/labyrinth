@@ -8,7 +8,7 @@ import os
 import pygame
 
 import tile
-from gui import gui_element
+import gui_element
 from constants import TILESIZE
 
 
