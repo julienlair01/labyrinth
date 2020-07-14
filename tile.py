@@ -33,12 +33,12 @@ class Tile():
         if element_type == "guard":
             self.element = element.Element(self.pos_x, self.pos_y,
                                            element_type)
-        # elif element_type == "plastic_tube":
-        #     self.element = element.Element(self.pos_x, self.pos_y,
-        #                                    element_type)
-        # elif element_type == "needle":
-        #     self.element = element.Element(self.pos_x, self.pos_y,
-        #                                    element_type)
-        # elif element_type == "ether":
-        #     self.element = element.Element(self.pos_x, self.pos_y,
-        #                                    element_type)
+        elif element_type == "plastic_tube":
+            self.element = element.Element(self.pos_x, self.pos_y,
+                                           element_type)
+        elif element_type == "needle":
+            self.element = element.Element(self.pos_x, self.pos_y,
+                                           element_type)
+        elif element_type == "ether":
+            self.element = element.Element(self.pos_x, self.pos_y,
+                                           element_type)
