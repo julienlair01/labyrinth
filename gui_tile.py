@@ -24,7 +24,7 @@ class GUITile(tile.Tile):
     def add_element(self, element_type):
         """Adds an UI element on the tile (guard or item).
 
-        Keyword arguments:
+        Arguments:
         element_type -- guard or item
         """
         if element_type == "guard":

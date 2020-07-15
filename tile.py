@@ -9,7 +9,7 @@ class Tile():
         """ Constructor of the class Tile.
         Initializes attribute of a single tile, according to layout.
 
-        Keyword arguments:
+        Arguments:
         tile_type -- wall, floor, start or exit
         image -- image representing the tile
         pos_x -- x position of the tile
@@ -27,7 +27,7 @@ class Tile():
     def add_element(self, element_type):
         """Adds an element on the tile (guard or item).
 
-        Keyword arguments:
+        Arguments:
         element_type -- guard or item
         """
         if element_type == "guard":

@@ -90,7 +90,7 @@ class Level:
         """ Returns True if tile is free to move to,
         False if it is blocked.
 
-        Keyword arguments:
+        Arguments:
         pos_x -- x position of the tile to check
         pos_y -- y position fo the tiel to check
         """
@@ -101,7 +101,7 @@ class Level:
             It is used to position the guard at the game initilization and to
             know whether the player reached the exit of the maze or not.
 
-            Keyword arguments:
+            Arguments:
             pos_x -- x position of the tile to check
             pos_y -- y position fo the tiel to check
         """
@@ -110,7 +110,7 @@ class Level:
     def pick_element(self, pos_x, pos_y):
         """ Returns the element present on the tile where the player stands.
 
-            Keyword arguments:
+            Arguments:
             pos_x -- x position of the tile to check
             pos_y -- y position fo the tiel to check
             """

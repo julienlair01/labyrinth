@@ -18,7 +18,7 @@ class GUI:
         """ Constructor of the class GUI.
         Initializes pygame.
 
-        Keyword arguments:
+        Arguments:
         level -- an instance of the class Level
         """
         pygame.init()
@@ -34,7 +34,7 @@ class GUI:
     def display_game(self, level, player):
         """ Displays and updates the game objects on the screen.
 
-        Keyword arguments:
+        Arguments:
         level -- an instance of the class Level
         player -- an instance if the class Player
         """
@@ -46,7 +46,7 @@ class GUI:
     def draw_gui(self, level, player):
         """ Draws the game Graphical UI.
 
-        Keyword arguments:
+        Arguments:
         level -- an instance of the class Level
         player -- an instance if the class Player
         """
@@ -58,7 +58,7 @@ class GUI:
         """ Draws the map by drawing each tile of the grid,
         and the element located on the tile.
 
-        Keyword arguments:
+        Arguments:
         level -- an instance of the class Level
         """
         self.displaysurf = pygame.display.set_mode(
@@ -77,7 +77,7 @@ class GUI:
         """ Draws an element on a specific tile:
         can be one of the unpicked items or the guard
 
-        Keyword arguments:
+        Arguments:
         element -- an instance of the class Element
         """
         if not element.is_picked:
@@ -88,7 +88,7 @@ class GUI:
         Draws also the player's bag, containing the items picked
         by the player.
 
-        Keyword arguments:
+        Arguments:
         player -- an instance of the class Player
         """
         self.displaysurf.blit(player.image, player.rect)
@@ -107,7 +107,7 @@ class GUI:
         """ Draws the text representing the player's bag
         at the bottom of the screen.
 
-        Keyword arguments:
+        Arguments:
         color -- the color of the text
         message -- the text to be displayed
         text_position -- position of the text on the screen
@@ -119,7 +119,7 @@ class GUI:
         """ Converts the user input into a moving direction
         for the player and update the player's sprite.
 
-        Keyword arguments:
+        Arguments:
         level -- an instance of the class Level
         player -- an instance if the class Player
         """

@@ -11,7 +11,7 @@ class Element:
         Specify whether an element is pickable or not,
         and whether the element has already been picked or not.
 
-        Keyword arguments:
+        Arguments:
         pos_x -- x position of the tile the element is located on
         pos_y -- y position of the tile the element is located on
         content -- what the element contains (guard or item)
