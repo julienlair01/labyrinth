@@ -25,8 +25,7 @@ class Game:
             self.level.generate_level()
             self.player = player.Player(self.level)
         system("clear")
-        print("Welcome to Escape MacGyver!\nPick the 3 items and find the exit.\
-             Enjoy!")
+        print("Welcome to Escape MacGyver!\nPick the 3 items and find the exit. Enjoy!")
 
     def main_loop(self, game_mode):
         end_of_game = False
@@ -40,7 +39,7 @@ class Game:
             if self.player.has_found_exit(self.level):
                 end_of_game = True
                 if self.player.has_picked_all_items():
-                    print("Congratulationss, you escaped!")
+                    print("Congratulations, you escaped!")
                 else:
                     print("Ooops... You did not pick all required items...")
                     print("You lost! HAHAHAHA!!!")
